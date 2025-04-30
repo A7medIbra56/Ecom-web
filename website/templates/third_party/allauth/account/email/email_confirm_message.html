@@ -1,0 +1,12 @@
+{% extends "notifications/base_email.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %}Confirm Your Email Address{% endblocktrans %}{% endblock title %}
+
+{% block content %}
+<p>{% blocktrans %}Please confirm your email address by clicking the link below:{% endblocktrans %}</p>
+
+<p style="text-align: center;"><a href="{{ activate_url }}" class="button">{% blocktrans %}Confirm Email{% endblocktrans %}</a></p>
+{% endblock content %}
+
+

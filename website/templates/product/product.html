@@ -1,0 +1,127 @@
+{% extends "base/website/website_base.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+{% load static %}
+
+<title>Home Page</title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<div class="pages_container">
+
+    <div class="page-100">
+
+        <div class="container my-5">
+
+            <!-- Breadcrumb navigation -->
+            <nav aria-label="breadcrumb" class="mb-4">
+                
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                {% if product.sub_category %}
+                  <li class="breadcrumb-item active" aria-current="page">{{ product.sub_category }}</li>
+                {% endif %}
+                <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+              </ol>
+
+            </nav>
+        
+            <div class="row">
+                <!-- Left column: Product Images -->
+                <div class="col-md-6">
+                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+
+                            {% if product.thumbnail %}
+                                <div class="carousel-item active">
+                                    <img src="{{ product.thumbnail.url }}" class="d-block w-100 img-fluid rounded" alt="{{ product.title }}">
+                                </div>
+                            {% endif %}
+
+                            {% for image in product.images.all %}
+                                <div class="carousel-item">
+                                    <img src="{{ image.image.url }}" class="d-block w-100 img-fluid rounded" alt="{{ product.title }}">
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Right column: Product Details -->
+                <div class="col-md-6">
+                    <h1 class="mb-3">{{ product.title }}</h1>
+                    <h4 class="text-muted mb-3">${{ product.price }}</h4>
+                    <p>
+                        <span class="badge bg-dark">{{ product.vendor.name }}</span>
+                    </p>
+                    <p class="mb-4">{{ product.description }}</p>
+        
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success" role="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <!-- Add to Cart -->
+                    <form method="post" action=".">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <div class="input-group">
+                                <input type="number" id="quantity" name="quantity" value="1" class="form-control" min="1">
+                                <button class="btn btn-dark text-uppercase" type="submit">Add to Cart</button>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        
+            {% if similar_products %}
+                <hr class="my-5">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="mb-4">Similar Products</h2>
+                    </div>
+                    {% for product in similar_products %}
+                        <div class="col-md-3 mb-4">
+                            <h1>{{ product.title }}</h1>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+{% endblock additional_dom_scripts %}

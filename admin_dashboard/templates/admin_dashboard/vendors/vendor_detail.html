@@ -1,0 +1,441 @@
+{% extends "base/admin/admin.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+<title>Vendor Details</title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+<link rel="stylesheet" type="text/x-scss" href="{% static 'admin_dashboard/scss/vendor_details.scss' %}">
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+
+<!-- start page header -->
+<div class="dashboard__header dashboard__header--vendor-detail">
+
+    <div class="dashboard__header-text">
+
+        <h4 class="dashboard__title">Vendors Details</h4>
+
+        <h6 class="dashboard__subtitle">Vendor Profile</h6>
+
+    </div>
+
+</div>
+<!-- end page header -->
+
+<div class="sections">
+
+    <div class="section section--general-info">
+        
+        <div class="profile-photo">
+            <img src="../../../../media/uploads/vendor-image.png" alt="vendor image"/>
+        </div>
+
+        <div class="text">
+            
+            <h6 class="vendor-name">{{vendor.user}}</h6>
+
+            <div class="data">
+
+                <div class="box">
+                    <h5 class="box__title">EMAIL ADDRESS</h5>
+                    <h6 class="box__value">
+                        <a href="mailto:{{ vendor.customer_support_email }}">{{ vendor.customer_support_email }}</a>
+                    </h6>
+                    <!-- <h6 class="box__value">{{vendor.customer_support_email}}</h6> -->
+                </div>
+
+                <div class="box">
+                    <h5 class="box__title">phone number</h5>
+                    
+                    <h6 class="box__value">
+                        <a href="tel:{{ vendor.business_phone }}">{{ vendor.business_phone }}</a>
+                    </h6>
+
+                </div>
+
+                <div class="box">
+                    <h5 class="box__title">complete address</h5>
+                    <h6 class="box__value">{{vendor.business_address}} </h6>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="section section--business-info ">
+        
+        <h5 class="section__title">Business Information</h5>
+
+        <div class="data">
+
+            <div class="box">
+                <h5 class="box__title">Business Name</h5>
+                <h6 class="box__value">{{ vendor.business_name }}</h6>
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Business Type</h5>
+                <h6 class="box__value unfinished">LOREM IPSUM</h6>
+                <!-- <h6 class="box__value">{{ vendor.business_type }}</h6> -->
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Business Registration Number</h5>
+                <h6 class="box__value">{{ vendor.business_registration_number }}</h6>
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">VAT / Tax Registration Number</h5>
+                <h6 class="box__value">{{ vendor.vat_tax_registration_number }}</h6>
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Years in Operation</h5>
+                <h6 class="box__value">{{ vendor.years_in_operation }}</h6>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section section--contact-and-communication">
+        
+        <h5 class="section__title">contact & communcation details</h5>
+
+        <div class="data">
+
+            <div class="box">
+                <h5 class="box__title">Primary Contact Name</h5>
+                <h6 class="box__value">{{ vendor.primary_contact_name }}</h6>
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Business Phone</h5>
+                
+                <h6 class="box__value">
+                    <a href="tel:{{ vendor.business_phone }}">{{ vendor.business_phone }}</a>
+                </h6>
+
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">WhatsApp / Alternate Contact</h5>
+                
+                <h6 class="box__value">
+                    <a href="tel:{{ vendor.whatsapp_alternate_contact }}">{{ vendor.whatsapp_alternate_contact }}</a>
+                </h6>
+
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Customer Support Email</h5>
+                
+                <h6 class="box__value">
+                    <a href="mailto:{{ vendor.customer_support_email }}">{{ vendor.customer_support_email }}</a>
+                </h6>
+
+            </div>
+
+        </div>
+        
+    </div>
+
+    <div class="section section--business-and-operation">
+        
+        <h5 class="section__title">Business & Operational Details</h5>
+        
+        <div class="data">
+
+            <div class="box">
+                <h5 class="box__title">Business Address</h5>
+                <h6 class="box__value">{{ vendor.business_address }}</h6>
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Warehouse Locations</h5>
+                <h6 class="box__value unfinished">LOREM IPSUM</h6>
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Country / Region Served</h5>
+                <h6 class="box__value">{{ vendor.country_region_served }}</h6>
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Logistics Partner</h5>
+                <h6 class="box__value">{{ vendor.logistics_partner }}</h6>
+            </div>
+
+        </div>
+    
+    </div>
+
+{% if vendor.is_approved %}
+    <div class="section section--financial-and-payment">
+        
+        <h5 class="section__title">
+            Financial & Payment information
+        </h5>
+
+        <div class="data">
+
+            <div class="box">
+                <h5 class="box__title">Payment Method Preferences</h5>
+                <h6 class="box__value unfinished">LOREM IPSUM</h6>
+                <!-- <h6 class="box__value">{{ vendor.payment_method_preferences }}</h6> -->
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Auto Payout Frequency</h5>
+                <h6 class="box__value unfinished">LOREM IPSUM</h6>
+                <!-- <h6 class="box__value">{{ vendor.auto_payout_frequency }}</h6> -->
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Balance</h5>
+                <h6 class="box__value">$ {{ vendor.balance }}</h6>
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Pending Balance</h5>
+                <h6 class="box__value">$ {{ vendor.pending_balance }}</h6>
+            </div>
+
+        </div>
+
+    </div>
+{% endif %}
+
+    <div class="section section--compliance-and-certification">
+        
+        <h5 class="section__title">
+            Compliance & Certifications
+        </h5>
+        
+        <div class="data">
+
+            <div class="box">
+                <h5 class="box__title">Import/Export License</h5>
+                <h6 class="box__value">{{ vendor.import_export_license }}</h6>
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">ISO Certification</h5>
+                <h6 class="box__value">{{ vendor.iso_certification|yesno:"Yes,No" }}</h6>
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Sustainability Certification</h5>
+                <h6 class="box__value">{{ vendor.sustainability_certification|yesno:"Yes,No" }}</h6>
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% if vendor.is_approved %}
+    <div class="section section--admin-and-approval">
+        
+        <h5 class="section__title">Admin & Approval details</h5>
+
+        <div class="data">
+
+            <div class="box">
+                <h5 class="box__title">Is Approved</h5>
+                <h6 class="box__value">{{ vendor.is_approved|yesno:"Yes,No" }}</h6>
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Approved By</h5>
+                <h6 class="box__value unfinished">Admin</h6>
+                <!-- <h6 class="box__value">{{ vendor.approved_by }}</h6> -->
+            </div>
+
+            <div class="box">
+                <h5 class="box__title">Date Approved</h5>
+                <h6 class="box__value unfinished">1/1/2025</h6>
+                <!-- <h6 class="box__value">{{ vendor.date_approved|date:"d/m/Y" }}</h6> -->
+            </div>
+
+        </div>
+
+    </div>
+    
+{% else %}
+
+        <!-- <h5>pending approval section</h5> -->
+    {% if thread %}
+    <div class="section section--threads">
+        <h3 class="section__title">Reply to Thread <span>{{ thread.subject }}</span></h3>
+
+        <h4 class="section__subtitle">Messages:</h4>
+
+        <ul class="messages-list">
+
+            {% for message in thread_messages %}
+
+                <li class="message-item">
+                    <h5 class="message-sender">{{ message.sender }} <span class="timestamp">{{ message.timestamp }}</span></h5>
+                    <!-- <strong>{{ message.sender }}:</strong>  -->
+                    <h5 class="message-content">{{ message.content }}</h5>
+                    <!-- {{ message.content }} ({{ message.timestamp }}) -->
+
+                    {% if message.files.exists %}
+                    
+                    <h5 class="section__subtitle attachments">Attachments</strong>
+                    
+                    <ul class="attachment-list">
+                        
+                        {% for file in message.files.all %}
+                        
+                        <li class="attachment-item">
+                            
+                            <a class="image-link" href="#" data-bs-toggle="modal" data-bs-target="#imageModal{{ file.id }}">
+                                <img src="{{file.file.url}}" alt="Thumbnail">
+                            </a>
+
+                            <!-- Bootstrap Modal -->
+                            <div class="modal fade" id="imageModal{{ file.id }}" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                                
+                                <div class="modal-dialog modal-dialog-centered"> <!-- Centered vertically -->
+                                
+                                    <div class="modal-content">
+                                        
+                                        <div class="modal-body p-0"> <!-- Remove padding for full image -->
+                                            <img src="{{file.file.url}}" alt="Full Image" class="img-fluid w-100">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                {% endif %}
+
+                </li>
+
+            {% endfor %}
+
+        </ul>
+    
+        <form class="reply-form" method="post" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+    
+            <div class="form-group">
+                {% render_field reply_form.content class="form-control" placeholder="Subject"%}
+            </div>
+    
+            <button type="submit" name="action" value="submit_ticket" class="btn submit-btn">Reply</button>
+        </form>
+    </div>
+
+   
+    
+    {%else%}
+    <div class="section section--missing-info">
+        
+        <h5 class="section__title">Missing info? Need Clarification </h5>
+        
+        <h5 class="section__subtitle">Contact the vendor requesting all the documents you may need to proceed and insure we only the best on our platform</h5>
+        
+        <form class="missing-info-form" method="post" action="">
+            {% csrf_token %}
+
+            <div class="input-wrapper input-wrapper--subject">
+
+                <h5 class="label label--subject">Request Subject</h5>
+
+                <div class="form-group">
+                    {% render_field start_thread_form.subject class="form-control" placeholder="Subject"%}
+                </div>
+
+            </div>
+            
+            <div class="input-wrapper input-wrapper--body">
+
+                <h5 class="label label--body">Request body</h5>
+
+                <div class="form-group">
+                    {% render_field start_thread_form.message class="form-control" placeholder="Message" %}
+                </div>
+
+            </div>
+
+            <button type="submit" name="action" value="submit_ticket" class="btn submit-btn">submit reply</button>
+
+        </form>
+    </div>
+
+
+        
+
+    {% endif %}
+        
+
+
+
+{% endif %}
+
+</div>
+
+
+<div class="vendor-actions">
+
+{% if not vendor.is_approved%}
+
+    <form method="post" action="{% url 'admin_dashboard:vendor_approve' vendor.pk %}">
+        {% csrf_token %}
+        <button type="submit" name="action" value="approve_vendor" class="btn btn--accept">Accept</button>
+    </form>
+
+{% endif %}
+
+    <form method="post" action="{% url 'admin_dashboard:vendor_delete' vendor.pk %}">
+        {% csrf_token %}
+        <button type="submit" name="action" value="delete_vendor" class="btn btn--reject">Delete Vendor</button>
+    </form>
+
+
+
+</div>
+
+
+
+{% if not vendor.is_approved %}
+    <!-- Show approve button only if vendor is not approved -->
+    <!-- <form method="post" action="{% url 'admin_dashboard:vendor_approve' vendor.pk %}">
+        {% csrf_token %}
+        <button type="submit" name="action" value="approve_vendor" class="btn btn-success">Approve</button>
+    </form> -->
+
+    
+
+{% endif %}
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

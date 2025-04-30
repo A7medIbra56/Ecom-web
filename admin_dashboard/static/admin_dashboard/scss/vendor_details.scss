@@ -1,0 +1,388 @@
+@import '../../../../shared/static/shared/scss/variables.scss';
+
+.sections {
+    display:flex;
+    flex-direction: column;
+    margin: 0.5vw 0;
+    gap:0.5vw;
+
+    .section {
+        background-color: $white;
+        border: 0.1vw solid $border-color;
+        border-radius: 0.7vw;
+        padding: 1vw ;
+        
+        &__title{
+            font-size: 1.1vw;
+            font-weight: 500;
+            margin-bottom: 1vw;
+            color: $primary-text-color;
+            text-transform: capitalize;
+        }
+
+        .data{
+            display: flex;
+            gap:2vw;
+            flex-wrap: wrap;
+
+
+            .box{
+                flex:1;
+                padding:0vw 1vw 1vw 0vw;
+                display:flex;
+                flex-direction: column;
+                gap: 0.5vw;
+                flex-basis: 20%;
+                position: relative;
+
+                &__title{
+                    font-size: 1vw;
+                    font-weight: 400;
+                    color: $text-muted;
+                    margin:0;
+                    text-transform: uppercase;
+
+                }
+
+                &__value{
+                    font-size: 1vw;
+                    font-weight: 500;
+                    color: $primary-text-color;
+                    margin:0;
+
+                    a{
+                        color: $primary-color;
+                        text-decoration: none;
+                        transition: all $transition-duration ease;
+                    }
+
+                    a:hover{
+                        color: $secondary-color;
+                    }
+                }
+
+                &__value.unfinished {
+                    color: $accent-color;
+                }
+
+            }
+
+            .box:not(:last-of-type)::after{
+                content: '';
+                width:0.1vw;
+                height:80%;
+                background-color: $border-color;
+                position: absolute;
+                right: 0;
+                top:0;
+            }
+            .box:nth-of-type(4)::after{
+                display: none;
+            }
+
+        }
+        
+
+        &--general-info{
+            display:flex;
+            gap:1vw;
+        
+
+            .profile-photo{
+                width: 8vw;
+                height: 8vw;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+
+                img{
+                    width:7vw;
+                    height:7vw;
+                    border-radius: 50%;
+                }
+            }
+
+            .text{
+                flex:1;
+                display:flex;
+                flex-direction: column;
+                gap:1vw;
+
+                .vendor-name{
+                    font-size: 1.5vw;
+                    font-weight: 500;
+                    color: $primary-text-color;
+                    margin: 0;
+                }
+
+            }
+
+            .data{
+                .box::after{
+                    display: none;
+                }
+            }
+        }
+
+
+        &--missing-info {
+
+            .section__title{
+                margin-bottom: 0.25vw !important;
+            }
+
+            .section__subtitle{
+                margin: 0 !important;
+                font-size: 1vw;
+                font-weight: 400;
+                margin-bottom: 1vw;
+                color: $text-muted;
+                margin-bottom: 1vw !important;
+            }
+
+            .missing-info-form {
+                display: flex;
+                flex-direction: column;
+                gap: 1vw;
+
+                .label{
+                    font-size: 1vw;
+                    font-weight: 500;
+                    color: $primary-text-color;
+                    margin-bottom: 0.5vw;
+                    text-transform: capitalize;
+                }
+            
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+
+                    
+                    input,
+                    textarea {
+                        width: 100%;
+                        padding: 0.5vw;
+                        font-size: 1vw;
+                        border: 0.1vw solid $border-color;
+                        border-radius: 0.5svw;
+                        outline: none;
+                        transition: all $transition-duration ease;
+                        
+                        &:hover{
+                            border-color: $primary-color; 
+                        }
+
+                        &:focus {
+                            border-color: $primary-color; 
+                            box-shadow: none;
+                        }
+
+                        &::placeholder{
+                            color: $text-muted;
+                        }
+
+                    }
+                    textarea{
+                        resize:none;
+                        height: 9vw;
+                    }
+                }
+            
+                .submit-btn {
+                    align-self: flex-start; 
+                    padding: 0.5vw 1.5vw;
+                    font-size: 1vw;
+                    font-weight: 500;
+                    text-transform: capitalize;
+                    color: $white;
+                    background-color: $primary-color;
+                    border: none;
+                    border-radius: 0.5svw;
+                    cursor: pointer;
+                    transition: all $transition-duration ease;
+            
+                    &:hover {
+                        background-color: $primary-hover-color 
+                    }
+                }
+            }
+        }
+
+        &--threads {
+            .section__title{
+                margin: 0 !important;
+                margin-bottom: 0.5vw !important;
+                
+
+                span{
+                    color: $primary-color
+                }
+            }
+
+            .section__subtitle{
+                margin: 0 !important;
+                font-size: 1vw;
+                font-weight: 400;
+                margin-bottom: 0.5vw !important;
+                color: $secondary-text-color;
+                margin-top: 1vw !important;
+            }
+
+            .messages-list{
+                list-style: none;
+                padding:0;
+                display:flex;
+                flex-direction: column;
+                gap:0.5vw;
+
+                .message-item{
+                    // background-color: green;
+                    background-color: $primary-bg-color;
+                    padding: 0.75vw;
+                    display:flex;
+                    flex-direction: column;
+                    gap: 0.5vw;
+                    border-radius: 0.5svw;
+                    border: 0.1vw solid $border-color;
+
+                    .message-sender {
+                        font-size: 1.1vw;
+                        font-weight: 500;
+                        margin: 0;
+                        color: $primary-color;
+                        display:flex;
+                        align-items: center;
+                        gap: 1vw;
+
+
+                        .timestamp{
+                            color: $secondary-text-color;
+                            font-size: 1vw;
+                            font-weight: 400;
+                        }
+                    }
+
+                    .message-content {
+                        font-size: 1.1vw;
+                        font-weight: 500;
+                        color:$primary-text-color;
+                        padding: 0 0.5vw;
+                    }
+                    .attachments{
+                        margin-top: 0 !important;
+                    }
+                    .attachment-list {
+                        margin-top: 0.5vw;
+                        list-style: none;
+                        padding:0;
+                        display:flex;
+                        gap:1vw;
+                        .attachment-item{
+                            flex-basis: 7%;
+                            height: 70%;
+                            .image-link {
+                                img{
+                                    width:100%;
+                                    height:100%;
+                                    border-radius: 0.7svw;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .reply-form {
+                display: flex;
+                flex-direction: column;
+                gap: 1vw;
+
+                textarea {
+                    width: 100%;
+                    padding: 1vw;
+                    font-size: 1vw;
+                    border: 0.1vw solid $border-color;
+                    border-radius: 0.5svw;
+                    outline: none;
+                    transition: all $transition-duration ease;
+                    resize: none;
+                    height:9vw;
+                    
+                    &:hover{
+                        border-color: $primary-color; 
+                    }
+
+                    &:focus {
+                        border-color: $primary-color; 
+                        box-shadow: none;
+                    }
+
+                    &::placeholder{
+                        color: $text-muted;
+                    }
+
+                }
+
+                .submit-btn{
+                    align-self: flex-start; 
+                    padding: 0.5vw 1.5vw;
+                    font-size: 1vw;
+                    font-weight: 500;
+                    text-transform: capitalize;
+                    color: $white;
+                    background-color: $primary-color;
+                    border: none;
+                    border-radius: 0.5svw;
+                    cursor: pointer;
+                    transition: all $transition-duration ease;
+            
+                    &:hover {
+                        background-color: $primary-hover-color 
+                    }
+
+                }
+
+            }
+
+            
+        }
+
+    }
+}
+
+.vendor-actions{
+    display:flex;
+    gap: 1vw;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 1vw;
+
+    .btn{
+        font-size: 1vw;
+        font-weight: 500;
+        padding: 0.5vw 1.5vw;
+        transition: all $transition-duration ease;
+        border-radius: 0.5svw;
+        color: $white;
+
+        &--accept{
+            background-color: $success-color;
+
+            &:hover{
+                background-color: darken($color: $success-color, $amount: 10%);
+            }
+
+        }
+
+        &--reject{
+            background-color: $danger-color;
+
+            &:hover{
+                background-color: darken($color: $danger-color, $amount: 10%);
+            }
+        }
+    }
+
+}
+
+

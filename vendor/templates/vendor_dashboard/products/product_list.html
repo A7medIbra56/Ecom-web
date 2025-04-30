@@ -1,0 +1,168 @@
+{% extends "base/admin/vendor.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+{% load static %}
+<title></title>
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+<link rel="stylesheet" type="text/x-scss" href="{% static 'vendor_dashboard/scss/product_list.scss' %}">
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+{% endblock page_js %}
+
+{% block page_body %}
+
+<!-- start dashboard header -->
+<div class="dashboard__header dashboard__header--products">
+
+    <div class="dashboard__header-text">
+        <h4 class="dashboard__title">Products List</h4>
+        <h6 class="dashboard__subtitle">Total {{products | length}} products</h6>
+    </div>
+
+    <div class="dashboard__header-actions">
+        <!-- Add Product -->
+        <div type="button" class="Add_Product">
+            <a class="btn" href="{% url 'vendor_dashboard:product_create' %}">
+                <i class="bi bi-plus-lg"></i> Add Product
+            </a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <form method="get" action="">
+                <i class="bi bi-search search-bar__icon"></i>
+                <input type="text" name="q" class="search-bar__input" placeholder="Search..." value="{{ search_query }}">
+                <button type="submit" class="btn btn-primary" hidden>Search</button>
+            </form>
+        </div>
+ 
+    </div>
+</div>
+<!-- end dashboard header -->
+{% if products %}
+<!-- start products table -->
+<div class="table-wrapper">
+    <table class="table table--products">
+        <thead>
+            <tr>
+                <th>PRODUCT ID</th>
+                <th>PRODUCT</th>
+                <th>STOCK</th>
+                <th>PRICE</th>
+                <th>ACTIVATION</th>
+                <th>STATUS</th>
+                <th>ACTIONS</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td class="product-id">#{{product.id}}</td>
+                <td class="product-name">
+                    <div class="product-info">
+                        <img src="{{product.get_thumbnail}}" alt="{{product.title}} Icon" class="product-icon">
+                        <div>
+                            <p class="name m-0">{{product.title}}</p>
+                        </div>
+                    </div>
+                </td>
+
+                <td class="stock">
+                    <div class="stock-btn">
+                        IN STOCK 
+                        <span class="stock-badge">{{product.stock_quantity}}</span>
+                    </div>
+                </td>
+
+                <td class="price">${{product.price}}</td>
+
+                <td class="btn_switch">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                    </div>
+                </td>
+
+                <td class="status">
+                    {% if product.is_approved %}
+                    <span class="status_inside status_inside--aprroved">Reviewing</span>
+                    {% else %}
+                    <span class="status_inside status_inside--not_aprroved">Awaiting</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    <div class="actions">
+                        <a href="{% url 'vendor_dashboard:product_detail' product.id %}" class="view-link view-link--view">
+                            View <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="{% url 'vendor_dashboard:product_update' product.id %}" class="view-link view-link--edit">
+                            Edit <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a href="#" class="view-link view-link--delete">
+                            Delete <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<!-- end products table -->
+
+<!-- start pagination -->
+{% if products_pagination %}
+<div class="pagination-wrapper">
+    <p class="pagination-info">
+        Showing {{ pagination_info.start }} to {{ pagination_info.end }} of {{ pagination_info.total }} entries
+    </p>
+
+    <ul class="pagination">
+        {% if products_pagination.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products_pagination.previous_page_number }}">Previous</a>
+        </li>
+        {% endif %}
+
+        {% for page_num in products_pagination.paginator.page_range %}
+        <li class="page-item">
+            <a class="page-link {% if products_pagination.number == page_num %}active{% endif %}"
+                href="?page={{ page_num }}">{{ page_num }}</a>
+        </li>
+        {% endfor %}
+        {% if products_pagination.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products_pagination.next_page_number }}">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}
+<!-- end pagination -->
+
+{% elif search_query %}
+<div class="fallback-wrapper">
+    <div class="fallback-card">
+        <h4 class="fallback-text">No search result for <strong>"{{ search_query }}"</strong></h4>
+        {% url "vendor_dashboard:dashboard" as home_url %}
+        <a class="fallback-link" href="{% url 'vendor_dashboard:products_list' %}">Back to Home</a>
+    </div>
+</div>
+{% else %}
+<div class="fallback-wrapper">
+    <div class="fallback-card">
+        <h4 class="fallback-text">{{ no_avaialable_data }}</h4>
+        <a class="fallback-link" href="{% url 'vendor_dashboard:products_list' %}">Back to Home</a>
+    </div>
+</div>
+{% endif %}
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+{% endblock additional_dom_scripts %}

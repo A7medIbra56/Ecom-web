@@ -1,0 +1,41 @@
+{% extends "shared/auth_base.html" %}
+{% load i18n %}
+{% load static %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+<title></title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<h1>Apply to become a vendor</h1>
+
+<form class="signup" id="signup_form" method="POST">
+
+  {% csrf_token %}
+
+  {{signup_form.as_p}}
+  {{vendor_form.as_p}}
+
+  <button type="submit">Submit</button>
+
+</form>
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

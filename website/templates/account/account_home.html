@@ -1,0 +1,11 @@
+{% extends "account/account_base.html" %}
+
+{% block page_head %}
+    <title>My Profile</title>
+{% endblock page_head %}
+
+{% block page_content %}
+    <h2>Profile Information</h2>
+    <p>Username: {{ request.user.username }}</p>
+    <p>Email: {{ request.user.email }}</p>
+{% endblock page_content %}

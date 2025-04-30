@@ -1,0 +1,63 @@
+{% extends "shared/auth_base.html" %}
+{% load i18n %}
+{% load static %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+<title></title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<div class="container py-4"></div>
+        <h1 class="mb-4">{% trans "Sign In" %}</h1>
+
+            <p class="mb-3">
+                {% blocktrans %}
+                    If you have not created an account yet, then please
+                    <a href="{{ signup_url }}">sign up</a> first.
+                {% endblocktrans %}
+            </p>
+
+        <form class="login" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+
+            {% if form.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.errors|striptags }}
+                </div>
+            {% endif %}
+
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary w-100 mb-3">{% trans "Sign In" %}</button>
+            <a class="btn btn-link w-100" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+        </form>
+    </div>
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

@@ -1,0 +1,110 @@
+@import "../../../../shared/static/shared/scss/variables.scss";
+// products table
+
+.table-wrapper{
+    tbody{
+
+        tr{
+            .status{
+                
+                .stat{
+
+                    &--open {
+                        background-color: $tag-primary-bg-color;
+                        color: $primary-color;
+                    }
+
+                    &--in-progress {
+                        background-color: $tag-danger-bg-color; // Define this color
+                        color: $warning-color;
+                    }
+
+                    &--closed {
+                        background-color: $tag-danger-bg-color;
+                        color: $danger-color;
+                    }
+
+                    &--awaiting-vendor-reply {
+                        background-color: $secondary-bg-color;
+                        color: $secondary-color;
+                    }
+
+                    &--awaiting-admin-reply {
+                        background-color: $primary-bg-color;
+                        color: $primary-text-color;
+
+                        background-color: #4CAF50; // Green for resolved
+                        color: $white;
+                    }
+
+                    &--awaiting-customer-reply {
+                        background-color: lighten($accent-color, 40%);
+                        color: $accent-color;
+                    }
+
+                    &--unknown {
+                        background-color: #d3d3d3; // Light gray for unknown status
+                        color: $secondary-text-color;
+                    }
+
+                    &--resolved {
+                        background-color: #4CAF50; // Green for resolved
+                        color: $white;
+                    }
+
+                    &--pending {
+                        background-color: #FFEB3B; // Yellow for pending
+                        color: $black;
+                    }
+                }
+
+            }
+
+            td:last-child{
+                // display:flex;
+                // align-items: center;
+                // gap: 1vw;
+                
+                // .view-link--view{
+                //     color: $success-color
+                // }
+            }
+
+            td {
+                p {
+                    margin:0;
+                }
+            }
+
+            .user {
+                .user-info{
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5vw;
+                
+                    img{
+                        width: 2vw;
+                        height: 2vw;
+                        border-radius: 50%;
+                    }
+
+                    .name {
+                        margin: 0;
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+
+.table--tickets {
+    tbody {
+
+        tr{
+            
+            
+        }
+    }
+}

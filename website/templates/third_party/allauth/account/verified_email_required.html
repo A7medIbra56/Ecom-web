@@ -1,0 +1,38 @@
+{% extends "shared/auth_base.html" %}
+{% load i18n %}
+{% load static %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+<title></title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<div class="container py-4">
+    <h1 class="mb-4">{% trans "Verify Your E-mail Address" %}</h1>
+
+    <div class="alert alert-warning">
+        {% url 'account_email' as email_url %}
+        <p class="mb-3">{% trans "This part of the site requires us to verify that you are who you claim to be. For this purpose, we require that you verify ownership of your e-mail address." %}</p>
+        <p class="mb-0">{% blocktrans %}We have sent an e-mail to you for verification. Please click on the link inside that e-mail. If you do not see the verification e-mail in your main inbox, check your spam folder. Otherwise <a href="{{ email_url }}">click here</a> to have another sent.{% endblocktrans %}</p>
+    </div>
+</div>
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

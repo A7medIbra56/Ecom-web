@@ -1,0 +1,35 @@
+{% extends "shared/auth_base.html" %}
+{% load i18n %}
+{% load static %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+<title></title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<div class="container py-4">
+    <h1 class="mb-4">{% trans "Sign Up Closed" %}</h1>
+    <div class="alert alert-info">
+        <p class="mb-0">{% trans "We are sorry, but the sign up is currently closed." %}</p>
+    </div>
+</div>
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

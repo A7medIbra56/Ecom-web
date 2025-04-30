@@ -1,0 +1,37 @@
+{% extends "account/account_base.html" %}
+
+{% block page_head %}
+    <title>My Profile</title>
+{% endblock page_head %}
+
+{% block page_content %}
+
+<h3>Reply to Thread: {{ thread.subject }}</h3>
+
+<h4>Messages:</h4>
+<ul>
+    {% for message in thread_messages %}
+        <li><strong>{{ message.sender }}:</strong> {{ message.content }} ({{ message.timestamp }})</li>
+        {% if message.files.exists %}
+            <br>
+            <strong>Attachments:</strong>
+            <ul>
+                {% for file in message.files.all %}
+                    <li><a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<form method="post" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+
+    <div class="form-group">
+        {% render_field reply_form.content class="form-control" placeholder="Subject" %}
+    </div>
+
+    <button type="submit" name="action" value="submit_ticket" class="btn btn-primary">Reply</button>
+</form>
+
+{% endblock page_content %}

@@ -1,0 +1,23 @@
+{% extends "account/account_base.html" %}
+
+{% block page_head %}
+    <title>My Profile</title>
+{% endblock page_head %}
+
+{% block page_content %}
+
+    {% if addresses %}
+
+    {% for address in addresses %}
+
+        <p>Address {{ forloop.counter }}: {{ address }}</p>
+
+    {% endfor %}
+
+    {% else %}
+
+    <h1>No Addresses Saved</h1>
+
+    {% endif %}
+
+{% endblock page_content %}

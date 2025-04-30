@@ -1,0 +1,103 @@
+{% extends "base/admin/vendor.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+{% load static %}
+
+<title></title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+
+{% block page_body %}
+
+<h1>Order Name: {{ order }}</h1>
+
+<form method="post" action="">
+    {% csrf_token %}
+    <!-- <h1>Overall Order Status:</h1>
+    <select name="general_order_status" class="form-control" disabled>
+        {% for value, label in order_status %}
+        
+        <option value="{{ value }}" {% if order.status == value %}selected{% endif %}>
+            {{ label }}
+        </option>
+
+        {% endfor %}
+
+    </select> -->
+
+    {% if disable_order_editing %}
+        <p class="text-muted"><i class="fa fa-lock"></i> Editing disabled. See note below.</p>
+    {% endif %}
+
+    {% if order_status_messages %}
+        {% for message in order_status_messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <table class="table">
+        
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for item in order_items %}
+                <tr>
+
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.product.title }}</td>
+                    <td>{{ item.quantity }}</td>
+
+                    <td>
+                        <select name="status_{{ item.id }}" class="form-control" {% if disable_order_editing %}disabled{% endif %} >
+                            {% for value, label in order_items_status %}
+                            
+                            <option value="{{ value }}" {% if item.status == value %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <button type="submit" class="btn btn-primary" {% if disable_order_editing %}disabled{% endif %}>Update</button>
+
+</form>
+
+{% endblock page_body %}
+
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+
+    {% load static %}  <!-- Load static files like CSS, JS, images -->
+    {% load widget_tweaks %}  <!-- Load widget tweaks for customizing form widgets -->
+    {% load compress %}
+    {% load i18n %}
+
+    <meta name="robots" content="index, follow">  <!-- Instructions for web crawlers -->
+    <meta property="og:type" content="website">  <!-- Open Graph type for social media -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <!-- Content type and character encoding -->
+    <meta http-equiv="Content-Language" content="en">  <!-- Content language -->
+
+    <!-- Site Keywords -->
+    <meta name="keywords" content="">  <!-- Keywords for SEO -->
+
+    <!-- Site Description -->
+    <meta name="description" content="">  <!-- Description of the site for search engines -->
+    <meta property="og:description" content="">  <!-- Open Graph description for social media -->
+
+    <!-- Site URL -->
+    <meta property="og:url" content="">  <!-- URL of the site for Open Graph -->
+
+    <!-- Full Site Name -->
+    <meta name="author" content="">  <!-- Author of the website -->
+    <meta property="og:title" content="">  <!-- Title of the site for Open Graph -->
+
+    <!-- Page Head -->
+    {% block page_head %}
+    {% endblock page_head %}
+
+{% endblock head %}
+
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'shared/scss/website_base.scss' %}">
+
+    <!-- Page CSS -->
+    {% block page_css %}
+    {% endblock page_css %}
+
+{% endblock css %}
+
+<!-- Website JS -->
+{% block js %}
+    <!-- Caching mechanism -->
+    <script src="{% static 'shared/js/cache.js' %}"></script>
+
+    <!-- Page JS -->
+    {% block page_js %}
+    {% endblock page_js %}
+
+{% endblock js %}
+
+<!-- Website Body -->
+{% block body%}
+
+{% include "base/website/components/header.html" %}
+
+<div class="pages_container">
+
+    <!-- Page Body -->
+    {% block page_body%}
+    {% endblock page_body%}
+
+</div>
+
+{% include "base/website/components/footer.html" %}
+
+{% endblock body%}
+
+
+<!-- Website DOM JS -->
+{% block dom_js %}
+
+    <!-- Page DOM JS-->
+    {% block page_dom_js %}
+    {% endblock page_dom_js %}
+
+{% endblock dom_js %}
+

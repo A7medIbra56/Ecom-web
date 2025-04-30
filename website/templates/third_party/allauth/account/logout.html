@@ -1,0 +1,47 @@
+{% extends "shared/auth_base.html" %}
+{% load i18n %}
+{% load static %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+<title></title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<div class="container py-4">
+    <h1 class="mb-4">{% trans "Sign Out" %}</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <p class="mb-4">{% trans 'Are you sure you want to sign out?' %}</p>
+
+            <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+                <button type="submit" class="btn btn-danger">{% trans 'Sign Out' %}</button>
+                <a href="{% url 'home' %}" class="btn btn-secondary">{% trans 'Cancel' %}</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

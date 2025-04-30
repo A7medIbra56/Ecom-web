@@ -1,0 +1,110 @@
+@import "../../../../shared/static/shared/scss/variables.scss";
+// products table
+
+.table-wrapper {
+    .table--products {
+        tbody {
+            tr {
+                .product-id
+                {
+                    color: $primary-color !important;
+                }
+                .product-info {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5vw;
+
+                    .product-icon {
+                        width: 2vw;
+                        height: 2vw;
+                        border-radius: 50%;
+                    }
+
+                    .product-name {
+                        margin: 0;
+                        color: $primary-text-color;
+                    }
+                }
+
+                .price {
+                    font-weight: 500;
+                    color: $success-color;
+                }
+
+                .status {
+                    .status_inside {
+                        display: inline-block;
+                        text-align: center;
+                        min-width: 6vw;
+                        padding: 0.2vw 0.9vw;
+                        border-radius: 1vw;
+
+                        &--aprroved {
+                            background-color: $tag-success-bg-color;
+                            color: $success-color;
+                        }
+
+                        &--not_aprroved {
+                            background-color: $tag-primary-bg-color;
+                            color: $primary-color;
+                        }
+                    }
+                }
+
+                .stock-btn {
+                    display: inline-block;
+                    position: relative;
+                    background-color: $tag-success-bg-color;
+                    color: $success-color;
+                    font-weight: 500;
+                    padding: 0.2vw 0.9vw;
+                    border-radius: 1vw;
+
+                    .stock-badge {
+                        position: absolute;
+                        top: 0;
+                        left: 100%;
+                        transform: translate(-50%, -50%);
+                        background-color: $danger-color;
+                        color: $white;
+                        padding: 0.2vw 0.4vw;
+                        font-size: 0.6vw;
+                        border-radius: 4vw;
+                        font-weight: 500;
+                    }
+                }
+
+                .actions {
+                    display: flex;
+                    gap: 0.5vw;
+                    align-items: center;
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.25vw;
+                        text-decoration: none;
+                        padding: 0.3vw 0.7vw;
+                        border-radius: 5vw;
+                        font-size: 0.9vw;
+                        font-weight: 500;
+                        transition: background-color 0.3s;
+
+                        i {
+                            font-size: 1vw;
+                        }
+                    }
+                    .view-link--view {
+                        color: $success-color;
+                    }
+                    .view-link--edit {
+                        color: $primary-color;
+                    }
+                    .view-link--delete {
+                        color: $danger-color;
+                    }
+                }
+            }
+        }
+    }
+}

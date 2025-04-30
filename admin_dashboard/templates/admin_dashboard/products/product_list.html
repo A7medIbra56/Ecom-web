@@ -1,0 +1,235 @@
+{% extends "base/admin/admin.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+{% load static %}
+
+<title>Products List</title>
+
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+<link rel="stylesheet" type="text/x-scss" href="{% static 'admin_dashboard/scss/product_list.scss' %}">
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+
+<!-- start dashboard header -->
+<div class="dashboard__header dashboard__header--products">
+
+    <div class="dashboard__header-text">
+
+        <h4 class="dashboard__title">Products</h4>
+
+        <h6 class="dashboard__subtitle">Total {{products| length}} products</h6>
+
+    </div>
+
+    <div class="dashboard__header-actions">
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <form method="get" action="">
+                <i class="bi bi-search search-bar__icon"></i>
+                <input type="text" name="q" class="search-bar__input" placeholder="Search..." value="{{ search_query }}">
+                <button type="submit" class="btn btn-primary" hidden>Search</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+<!-- end dashboard header -->
+
+
+{% if products %}
+
+<!-- start products table -->
+<div class="table-wrapper">
+    <table class="table table--products">
+
+        <thead>
+
+            <tr>
+                <th>PRODUCT ID</th>
+                <th>PRODUCT</th>
+                
+                {% if not approval_page %}
+                <th>NAME OF VENDER</th>
+                <th>PRICE</th>
+                <th>STATUS</th>
+
+                {%else%}
+                <th>VENDOR</th>
+                <th>DATE SUBMITTED</th>
+
+                {% endif %}
+                
+                <th>ACTIONS</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            {% for product in products %}
+            <tr>
+
+                <td class="vendor-id">#{{product.id}}</td>
+
+                <td class="product-name">
+
+                    <div class="product-info">
+
+                        <img src="{{product.get_thumbnail}}" alt="{{product.title}} Icon" class="product-icon">
+                        
+                        <div>
+                            <p class="name m-0">
+                                {{product.title}}
+                            </p>
+                        </div>
+                        
+                    </div>
+
+                </td>
+
+                <td>
+                    
+                    <div class="vendor">
+                        <img src="/media/uploads/vendor.png" alt="vendor Icon" class="vendor-icon">
+                    
+                    <div>
+                        <p class="vendor-name">{{product.vendor.user}}</p>
+                    </div>
+
+                    </div>
+                    
+                </td>
+
+                {% if not approval_page %}
+                    <td class="price">${{product.price}}</td>
+                
+                {%else%}
+                <td class="date-submitted">
+                    {{product.date_added|date:"d/m/Y"}}
+                {%endif %}
+                
+                {% if product.is_approved %}
+                    {% if product.stock_quantity > 0%}
+
+                        <td class="status">
+                            <p class="stat stat--in-stock">In Stock</p>
+                        </td>
+
+                    {% else %}
+
+                        <td class="status">
+                            <p class="stat stat--out-of-stock">Out of Stock</p>
+                        </td>
+
+                    {% endif %}
+                {% endif %}
+                
+
+                <td>
+                    {% if product.is_approved %}
+                    
+                        <a href="{% url 'admin_dashboard:product_detail' product.id %}" class="view-link view-link--approved">
+                        
+                            View
+                            <i class="bi bi-eye"></i>
+
+                        </a>
+
+                    {% else %}
+
+                        <a href="{% url 'admin_dashboard:product_approve' product.id %}" class="view-link view-link--unapproved">
+                        
+                            View More
+                            <i class="bi bi-arrow-up-right"></i>
+
+                        </a>
+
+                    {% endif%}
+                </td>
+            </tr>
+            {% endfor%}
+
+        </tbody>
+        
+    </table>
+</div>
+
+<!-- end products table -->
+
+<!-- start pagination -->
+{% if products_pagination%}
+<div class="pagination-wrapper">
+    
+    <p class="pagination-info">
+        Showing {{ pagination_info.start }} to {{ pagination_info.end }} of {{ pagination_info.total }} entries
+    </p>
+
+    <ul class="pagination">
+        {% if products_pagination.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products_pagination.previous_page_number }}">Previous</a>
+        </li>
+        {% endif %}
+
+        {% for page_num in products_pagination.paginator.page_range %}
+        <li class="page-item">
+            <a class="page-link {% if products_pagination.number == page_num %}active{% endif %}" href="?page={{ page_num }}">{{ page_num }}</a>
+        </li>
+        {% endfor %}
+
+        {% if products_pagination.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products_pagination.next_page_number }}">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+<!--end pagination -->
+{%else%}
+<p> not rendered</p>
+{% endif %}
+{% elif search_query%}
+
+<div class="fallback-wrapper">
+
+    <div class="fallback-card">
+
+        <h4 class="fallback-text">No search result for <strong>"{{ search_query }}"</strong></h4>
+        <a class="fallback-link" href="{%url 'vendor_dashboard:dashboard' %}">Back to Home</a>
+
+    </div>
+
+</div>
+{% else %}
+<div class="fallback-wrapper">
+
+    <div class="fallback-card">
+
+        <h4 class="fallback-text">{{no_avaialable_data}}</h4>
+        <a class="fallback-link" href="{%url 'admin_dashboard:home' %}">Back to Home</a>
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

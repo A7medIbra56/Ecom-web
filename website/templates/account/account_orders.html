@@ -1,0 +1,44 @@
+{% extends "account/account_base.html" %}
+
+{% block page_head %}
+    <title>My Profile</title>
+{% endblock page_head %}
+
+{% block page_content %}
+
+    {% if orders %}
+        <div class="container mt-4">
+            {% for order in orders %}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5>Order #{{ order.id }}</h5>
+                        <p class="mb-0"><strong>Status:</strong> {{ order.status }}</p>
+                        <p class="mb-0"><strong>Created At:</strong> {{ order.created_at }}</p>
+                    </div>
+                    <div class="card-body">
+                        <h6>Order Items:</h6>
+                        {% if order.items %}
+                            <ul class="list-group">
+                                {% for item in order.items.all %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>
+                                            {{ item.product.title }} (x{{ item.quantity }})
+                                        </span>
+                                        <span>${{ item.get_total_price }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No items in this order.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="container mt-4">
+            <h1>No Orders Available</h1>
+        </div>
+    {% endif %}
+
+{% endblock page_content %}

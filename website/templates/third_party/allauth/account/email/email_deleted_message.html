@@ -1,0 +1,10 @@
+{% extends "notifications/base_email.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %}Email Address Deleted{% endblocktrans %}{% endblock title %}
+
+{% block content %}
+<p>{% blocktrans %}Your email address has been deleted from your account. If you did not request this change, please contact support immediately.{% endblocktrans %}</p>
+{% endblock content %}
+
+

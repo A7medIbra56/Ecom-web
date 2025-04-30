@@ -1,0 +1,12 @@
+.filepond--list {
+    display: flex;
+    flex-wrap: wrap; // Allows items to wrap to the next line
+    padding: 0;
+    list-style: none; // Removes default list styling
+}
+
+.filepond--item {
+    flex: 1 1 calc(33.33% - 15px); // Ensures 3 items per row
+    max-width: calc(33.33% - 15px); // Prevents items from exceeding 3 per row
+    box-sizing: border-box; // Includes padding and border in width calculation
+}

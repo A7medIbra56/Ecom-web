@@ -1,0 +1,30 @@
+{% extends "../base/website/website_base.html" %}
+
+{% block website_head %}
+
+{% load static %}
+{% load widget_tweaks %} <!-- Load widget tweaks for customizing form widgets -->
+
+<title>Not Found</title>
+
+<link rel="stylesheet" href="{% static 'css/alt_pages.css' %}">
+
+{% endblock website_head %}
+
+{% block page_body %}
+
+
+<div class="pages_container">
+
+    <div class="page">
+        
+        <div class="text_container">
+            <h1 style="color: #e0131e;">Page Not Found - 404</h1>
+            <p style="color: #1D1D1D;">The page you’re looking for isn’t here. Please go back to the <a href="/home/">HomePage</a> or reach out to the admin for help.</p>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock page_body %}

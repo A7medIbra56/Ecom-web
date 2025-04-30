@@ -1,0 +1,54 @@
+{% extends "base/website/website_base.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+{% load static %}
+
+<title>Home Page</title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+<link rel="stylesheet" type="text/x-scss" href="{% static 'website/scss/main.scss' %}">
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<div class="pages_container">
+
+    <div class="page-max">
+        <h1>Checkout</h1>
+
+        {% if messages %}
+        {% for message in messages %}
+        <h1>{{ message }}</h1>
+        {% endfor %}
+
+        {% endif %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Checkout</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

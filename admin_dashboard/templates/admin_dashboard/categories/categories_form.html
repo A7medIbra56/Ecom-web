@@ -1,0 +1,53 @@
+{% extends "base/admin/admin.html" %}
+
+{% block page_head %}
+{% load static %}
+<title>{% if category %}Edit Category{% else %}Add Category{% endif %}</title>
+{% endblock page_head %}
+
+{% block page_css%}
+<link rel="stylesheet" type="text/x-scss" href="{% static 'admin_dashboard/scss/categories_form_base.scss' %}">
+{% load static %}
+{% endblock page_css%}
+
+{% block page_body %}
+
+<div class="dashboard__header">
+
+    <div class="dashboard__header-text">
+
+        <h4 class="dashboard__title">{% if category %}Edit Category{% else %}Add Category{% endif %}</h4>
+
+        <h6 class="dashboard__subtitle">Categories</h6>
+
+    </div>
+</div>
+
+<div class="form-wrapper">
+    <!-- <h4>{% if category %}Edit Category{% else %}Add Category{% endif %}</h4> -->
+    <form method="post">
+        {% csrf_token %}
+        <!-- {{ form.as_p }} -->
+
+        <p>
+            <label for="id_title">Title</label>
+            {{ form.title }}
+        </p>
+
+        <p>
+            <label for="id_slug">Slug</label>
+            {{ form.slug}}
+        </p>
+        <!-- Commission Rate Field -->
+        <p>
+            <label for="id_commission_rate">Commission Rate</label>
+            <div class="input-group">
+                {{ form.commission_rate }}
+                <span class="input-icon">%</span>
+            </div>
+        </p>
+
+        <button type="submit" class="submit-btn btn">{% if category %}Update{% else %}Add{% endif %} Category</button>
+    </form>
+</div>
+{% endblock page_body %}

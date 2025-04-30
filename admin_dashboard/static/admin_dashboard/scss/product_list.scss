@@ -1,0 +1,151 @@
+@import "../../../../shared/static/shared/scss/variables.scss";
+// products table
+
+.table-wrapper{
+    .table--products{
+        tbody{
+    
+            tr{
+    
+                .product-info{
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5vw;
+    
+                    .product-icon{
+                        width: 2vw;
+                        height: 2vw;
+                        border-radius: 50%;
+                    }
+    
+                    .product-name{
+                        margin: 0;
+                        color: $primary-text-color;
+                    }
+                }
+    
+                .vendor{
+                    display:flex;
+                    align-items: center;
+                    gap:0.5vw;
+    
+                    .vendor-icon{
+                        width: 2vw;
+                        height: 2vw;
+                        border-radius: 50%;
+                    }
+    
+                    .vendor-name{
+                        margin: 0;
+                        color: $primary-text-color;
+                    }
+                }
+    
+                .price{
+                    font-weight: 500;
+                }
+    
+                .status{
+                    
+                    .stat{
+    
+                        &--out-of-stock{
+                            background-color: $tag-danger-bg-color;
+                            color: $danger-color;
+                        }
+    
+                        &--in-stock{
+                            background-color: $tag-primary-bg-color;
+                            color: $primary-color;
+                        }
+                    }
+    
+                }
+
+                .view-link{
+                    &--aprroved{
+                        color: $success-color !important;
+                    }
+                    &--unaprroved{
+                        color: $primary-color !important;
+                    }
+                }
+            }
+        }
+    }
+}
+.table--products{
+    tbody{
+
+        tr{
+
+            .product-info{
+                display: flex;
+                align-items: center;
+                gap: 0.5vw;
+
+                .product-icon{
+                    width: 2vw;
+                    height: 2vw;
+                    border-radius: 50%;
+                }
+
+                .product-name{
+                    margin: 0;
+                    color: $primary-text-color;
+                }
+            }
+
+            .vendor{
+                display:flex;
+                align-items: center;
+                gap:0.5vw;
+
+                .vendor-icon{
+                    width: 2vw;
+                    height: 2vw;
+                    border-radius: 50%;
+                }
+
+                .vendor-name{
+                    margin: 0;
+                    color: $primary-text-color;
+                }
+            }
+
+            .price{
+                font-weight: 500;
+            }
+
+            .status{
+                
+                .stat{
+                    // background-color: $tag-danger-bg-color;
+                    // color: $danger-color;
+                    margin:0;
+                    width: fit-content;
+                    padding: 0.1vw 0.5vw;
+                    border-radius: 1vw;
+                    font-size: 0.8vw;
+                    font-weight: 500;
+
+                    &--out-of-stock{
+                        background-color: $tag-danger-bg-color;
+                        color: $danger-color;
+                    }
+
+                    &--in-stock{
+                        background-color: $tag-primary-bg-color;
+                        color: $primary-color;
+                    }
+                }
+
+            }
+            .view-link{
+                &--aprroved{
+                    color: $success-color !important;
+                }
+            }
+        }
+    }
+}

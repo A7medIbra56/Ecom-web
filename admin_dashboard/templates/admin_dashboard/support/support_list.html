@@ -1,0 +1,264 @@
+{% extends "base/admin/admin.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+{% load static %}
+
+<title>Dashboard</title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+<link rel="stylesheet" type="text/x-scss" href="{% static 'admin_dashboard/scss/support_list.scss' %}">
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<!-- start dashboard header -->
+<div class="dashboard__header">
+
+    <div class="dashboard__header-text">
+
+        <h4 class="dashboard__title">List of Report</h4>
+
+        <h6 class="dashboard__subtitle">Requests</h6>
+
+    </div>
+
+    <div class="dashboard__header-actions">
+
+        <!-- Search Bar -->
+        <!-- <div class="search-bar">
+            <form method="get" action="">
+                <i class="bi bi-search search-bar__icon"></i>
+                <input type="text" name="q" class="search-bar__input" placeholder="Search..." value="{{ search_query }}">
+                <button type="submit" class="btn btn-primary" hidden>Search</button>
+            </form>
+        </div> -->
+
+    </div>
+
+</div>
+<!-- end dashboard header -->
+
+{% if tickets %}
+<!-- start tickets table  -->
+<div class="table-wrapper">
+    <table class="table table--tickets">
+
+        <thead>
+
+            <tr>
+                <th>REPORT ID</th>
+                <th>NAME OF USER</th>
+                <th>SENDER</th>
+                <th>DATE</th>
+                <th>REASON OF REPORT</th>
+                <th>STATUS</th>
+                <th>ACTIONS</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            {% for ticket in tickets %}
+            <tr>
+
+                <td>
+                    <p>#{{ticket.id}}</p>
+                </td>
+
+                <td class="user">
+
+                    <div class="user-info">
+
+                        <img src="../../../media/uploads/vendor.png" alt="Icon" class="product-icon">
+                        
+                        <div>
+                            <p class="name">
+                                {% if ticket.user %}
+                                    <p>{{ticket.user.username}}</p>
+                                {% elif ticket.vendor %}
+                                    <p>{{ticket.vendor.username}}</p>
+                                {% endif %}
+                            </p>
+                        </div>
+                        
+                    </div>
+                    <div>
+                        <p class="name">
+                        
+                        </p>
+                    </div>
+
+                    
+
+                </td>
+
+                <td>
+                    {% if ticket.user %}
+                        <p>Customer</p>
+                    {% elif ticket.vendor %}
+                        <p>Vendor</p>
+                    {% endif %}
+                </td>
+
+                <td>
+                    <p>{{ ticket.created_at.date }}</p>
+                </td>
+
+                <td class="reason-box">
+                    <!-- <p>{{ "Heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"|truncatechars:48 }}</p> -->
+                    <p>{{ ticket.subject|truncatechars:48 }}</p>
+                </td>
+
+                <td class="status">
+                    {% if ticket.status == 'open' %}
+                        <p class="stat stat--open">{{ ticket.status|title }}</p>
+                    {% elif ticket.status == 'in_progress' %}
+                        <p class="stat stat--in-progress">{{ ticket.status|title }}</p>
+                    {% elif ticket.status == 'closed' %}
+                        <p class="stat stat--closed">{{ ticket.status|title }}</p>
+                    {% elif ticket.status == 'awiating_vendor_reply' %}
+                        <p class="stat stat--awaiting-vendor-reply">{{ ticket.status|title }}</p>
+                    {% elif ticket.status == 'awiating_admin_reply' %}
+                        <p class="stat stat--awaiting-admin-reply">{{ ticket.status|title }}</p>
+                    {% elif ticket.status == 'awiating_customer_reply' %}
+                        <p class="stat stat--awaiting-customer-reply">{{ ticket.status|title }}</p>
+                    {% else %}
+                        <p class="stat stat--unknown">{{ ticket.status|title }}</p>
+                    {% endif %}
+                </td>
+
+                <!-- <td> -->
+                    <!-- <a href="{% url 'admin_dashboard:ticket_detail' ticket.id %}" class="view-link approved"> 
+                        View
+                        <i class="bi bi-eye"></i>
+                    </a> -->
+                <!-- </td> -->
+                    <td>
+                        <!-- <a href="{% url 'admin_dashboard:ticket_detail' ticket.id%}" class="view-link view-link--view">
+                            View
+                            <i class="bi bi-eye"></i>
+                        </a> -->
+                        
+                        <a href="{% url 'admin_dashboard:ticket_detail' ticket.id%}" class="view-link view-link--reply">
+                            Reply
+                            <i class="bi bi-reply"></i>
+  
+                        </a>
+                    </td>
+                </td>
+                    
+            </tr>
+            {% endfor%}
+            
+        </tbody>
+        
+    </table>
+</div>
+
+<!-- end vender table  -->
+
+<div class="pagination-wrapper">
+    
+    <p class="pagination-info">
+        Showing {{ pagination_info.start }} to {{ pagination_info.end }} of {{ pagination_info.total }} entries
+    </p>
+
+    <ul class="pagination">
+        {% if tickets_pagination.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ tickets_pagination.previous_page_number }}">Previous</a>
+        </li>
+        {% endif %}
+
+        {% for page_num in tickets_pagination.paginator.page_range %}
+        <li class="page-item">
+            <a class="page-link {% if tickets_pagination.number == page_num %}active{% endif %}" href="?page={{ page_num }}">{{ page_num }}</a>
+        </li>
+        {% endfor %}
+
+        {% if vendors.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ tickets_pagination.next_page_number }}">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+
+{% elif search_query %}
+
+<div class="fallback-wrapper">
+
+    <div class="fallback-card">
+
+        <h4 class="fallback-text">No search result for <strong>"{{ search_query }}"</strong></h4>
+        <a class="fallback-link" href="{%url 'admin_dashboard:home' %}">Back to Home</a>
+
+    </div>
+
+</div>
+
+<!-- end pagination -->
+{%else%}
+<div class="fallback-wrapper">
+
+    <div class="fallback-card">
+
+        <h4 class="fallback-text">{{no_avaialable_data}}</h4>
+        <a class="fallback-link" href="{%url 'admin_dashboard:home' %}">Back to Home</a>
+
+    </div>
+
+</div>
+{%endif %}
+
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}
+
+
+<!-- <td>
+    <div class="vendor-info">
+        <img src="/media/uploads/vendor-image.png" alt="Vendor Icon" class="vendor-icon">
+        <div>
+            <p class="vendor-name">{{vendor.user}}</p>
+            <p class="vendor-email">{{vendor.customer_support_email}}</p>
+        </div>
+    </div>
+</td>
+
+<td>{{vendor.business_address}}</td>
+
+<td>
+
+    {% if vendor.is_approved%}
+    
+    <a href="{% url 'admin_dashboard:vendor_detail' vendor.id%}" class="view-link view-link--aprroved">
+        
+        View More
+        <i class="bi bi-arrow-up-right"></i>
+
+    </a>
+    
+    {%else%}
+
+    <a href="{% url 'admin_dashboard:vendor_approve' vendor.id%}" class="view-link view-link--not-approved">
+        
+        View
+        <i class="bi bi-eye"></i>
+
+    </a>
+
+    {%endif %}
+</td> -->

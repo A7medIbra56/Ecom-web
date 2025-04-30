@@ -1,0 +1,36 @@
+{% extends "base/admin/admin.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+{% load static %}
+
+<title>Dashboard</title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<h1>Payout #{{ payout.id }}</h1>
+
+<p><strong>User:</strong> {{ payout.user.username }}</p>
+<p><strong>Amount:</strong> ${{ payout.amount }}</p>
+<p><strong>Status:</strong> {{ payout.payout_status }}</p>
+<p><strong>Requested At:</strong> {{ payout.requested_at }}</p>
+<p><strong>Processed At:</strong> {{ payout.processed_at }}</p>
+<p><strong>Transaction Reference:</strong> {{ payout.payment_reference.stripe_payment_id }}</p>
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

@@ -1,0 +1,95 @@
+{% extends "base/admin/admin.html" %}
+
+{% block page_head %}
+{% load static %}
+<title>Category Details</title>
+{% endblock page_head %}
+
+{% block page_css%}
+
+<link rel="stylesheet" type="text/x-scss" href="{% static 'admin_dashboard/scss/category_detail.scss' %}">
+{% endblock page_css%}
+
+
+{% block page_body %}
+
+<div class="dashboard__header">
+
+    <div class="dashboard__header-text">
+
+        <h4 class="dashboard__title">{{category}} Details</h4>
+
+        <h6 class="dashboard__subtitle">Categories</h6>
+
+    </div>
+</div>
+
+
+
+<div class="detail-wrapper">
+    <!-- <h4 class="detail-title">Category Details</h4> -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Category Details</h5>
+
+            <div class="data">
+
+                <div class="box">
+                    <h5 class="box-title">category</h5>
+                    <h5 class="box-subtitle">{{ category.title }}</h5>
+                </div>
+    
+               <div class="box">
+                    <h5 class="box-title">Slug</h5>
+                    <h5 class="box-subtitle">{{ category.slug }}</h5>
+                </div>
+    
+                <div class="box">
+                    <h5 class="box-title">Commission Rate</h5>
+                    <h5 class="box-subtitle box-subtitle--percent  ">{{ category.commission_rate }}%</h5>
+                </div>
+
+            </div>
+        
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title ">Subcategories</h5>
+
+            {% if category.sub_categories.all %}
+        
+        <ul class="list-group">
+    
+                {% for sub_category in category.sub_categories.all %}
+    
+                <li class="list-group-item d-flex ">
+                    <span class="title">{{ sub_category.title }}</span>
+                    <span class="subtitle">Commission Rate: <span class="value">{{ sub_category.commission_rate }}%</span></span>
+                </li>
+    
+                {% endfor %}
+            
+            </ul>
+    
+        {% else %}
+    
+            <p class="text-muted">No subcategories available for this category.</p>
+    
+        {% endif %}
+
+        </div>
+
+        
+    </div>
+
+   
+
+    <div class="actions-wrapper">
+        <a href="{% url 'admin_dashboard:category_edit' category.id %}" class="btn btn--edit">Edit Category</a>
+        <a href="{% url 'admin_dashboard:category_list' %}" class="btn btn--link ">Back to List</a>
+    </div>
+</div>
+{% endblock page_body %}

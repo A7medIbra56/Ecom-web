@@ -1,0 +1,61 @@
+{% extends "base/admin/vendor.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+{% load static %}
+
+<title></title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+<link rel="stylesheet" type="text/x-scss" href="{% static 'vendor_dashboard/scss/product_add.scss' %}">
+{% endblock page_css %}
+
+{% block page_cdn_css %}
+
+{% endblock page_cdn_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+
+{% block page_body %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<script type="application/json" id="existing-images">
+    [
+    {% for image in product.images.all %}
+        {"source": "{{ image.image.url }}", "options": {"type": "local"}}{% if not forloop.last %},{% endif %}
+    {% endfor %}
+    ]
+</script>
+
+<form method="post" enctype="multipart/form-data" id="update_form" action="">
+    {% csrf_token %}
+
+    {{form.as_p}}
+
+    <input type="file" class="filepond" id="product_images" name="product_images" multiple>
+
+    <button type="submit" class="btn btn-primary" >Update</button>
+
+</form>
+
+{% endblock page_body %}
+
+
+{% block page_dom_js %}
+<script src="{% static 'vendor_dashboard/js/filepond.js' %}"></script>
+{% endblock page_dom_js %}

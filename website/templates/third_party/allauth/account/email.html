@@ -1,0 +1,115 @@
+{% extends "shared/auth_base.html" %}
+{% load i18n %}
+{% load static %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+<title></title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<div class="container py-4">
+    <h1 class="mb-4">{% trans "E-mail Addresses" %}</h1>
+
+    {% if user.emailaddress_set.all %}
+        <p class="mb-4">{% trans 'The following e-mail addresses are associated with your account:' %}</p>
+
+        <form action="{% url 'account_email' %}" class="email_list" method="post">
+            {% csrf_token %}
+            <div class="mb-4">
+                {% for emailaddress in user.emailaddress_set.all %}
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" id="email_radio_{{forloop.counter}}" 
+                               type="radio" name="email" 
+                               {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked{% endif %} 
+                               value="{{emailaddress.email}}"/>
+                        <label class="form-check-label {% if emailaddress.primary %}text-primary{% endif %}" 
+                               for="email_radio_{{forloop.counter}}">
+                            {{ emailaddress.email }}
+                            {% if emailaddress.verified %}
+                                <span class="badge bg-success">{% trans "Verified" %}</span>
+                            {% else %}
+                                <span class="badge bg-warning">{% trans "Unverified" %}</span>
+                            {% endif %}
+                            {% if emailaddress.primary %}
+                                <span class="badge bg-primary">{% trans "Primary" %}</span>
+                            {% endif %}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" name="action_primary" class="btn btn-secondary">
+                    {% trans "Make Primary" %}
+                </button>
+                <button type="submit" name="action_send" class="btn btn-secondary">
+                    {% trans "Re-send Verification" %}
+                </button>
+                <button type="submit" name="action_remove" class="btn btn-danger">
+                    {% trans "Remove" %}
+                </button>
+            </div>
+        </form>
+    {% else %}
+        <div class="alert alert-warning"></div>
+            <strong>{% trans 'Warning:' %}</strong> 
+            {% trans "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}
+        </div>
+    {% endif %}
+
+    {% if can_add_email %}
+        <h2 class="mt-5 mb-3">{% trans "Add E-mail Address" %}</h2>
+
+        <form method="post" action="{% url 'account_email' %}" class="add_email">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" name="action_add" class="btn btn-primary w-100">
+                {% trans "Add E-mail" %}
+            </button>
+        </form>
+    {% endif %}
+</div>
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+<script type="text/javascript">
+    (function() {
+        var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
+        var actions = document.getElementsByName('action_remove');
+        if (actions.length) {
+            actions[0].addEventListener("click", function(e) {
+                if (!confirm(message)) {
+                    e.preventDefault();
+                }
+            });
+        }
+    })();
+</script>
+
+{% endblock additional_dom_scripts %}

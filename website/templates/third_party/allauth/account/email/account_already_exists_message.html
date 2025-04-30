@@ -1,0 +1,23 @@
+{% extends "notifications/base_email.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %}Account Already Exists{% endblocktrans %}{% endblock title %}
+
+{% block content %}
+
+<p>{% blocktrans %}
+
+    You are receiving this email because you or someone else tried to signup for an
+    account using email address:<br><br>
+
+    <strong>{{ email }}</strong><br><br>
+
+    However, an account using that email address already exists. In case you have
+    forgotten about this, please use the password forgotten procedure to recover
+    your account:<br><br>
+
+    {% endblocktrans %}
+    <a href="{{ password_reset_url }}" class="button">{% blocktrans %}Reset Password{% endblocktrans %}</a>
+</p>
+
+{% endblock content %}

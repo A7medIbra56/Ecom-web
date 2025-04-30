@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+    {% load static %}  <!-- Load static files like CSS, JS, images -->
+    {% load widget_tweaks %}  <!-- Load widget tweaks for customizing form widgets -->
+    {% load i18n %}
+    {% load admin_tags %}
+
+    <meta name="robots" content="noindex, nofollow">  <!-- Instructions for web crawlers -->
+
+    <!-- Page Head -->
+    {% block page_head %}
+    {% endblock page_head %}
+
+{% endblock head %}
+
+
+{% block css %}
+
+    <!-- Common CSS & JavaScript -->
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'shared/scss/dashboard_base.scss' %}">  <!-- Main stylesheet -->
+
+    {% if request.LANGUAGE_CODE == "ar" %}  <!-- If the language is Arabic, load the RTL stylesheet -->
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'shared/scss/rtl/dashboard_base_rtl.scss' %}">
+    {% endif %}
+
+    <!-- Page CSS -->
+    {% block page_css %}
+    {% endblock page_css %}
+
+{% endblock css %}
+
+{% block cdn_css %}
+
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
+    {% block page_cdn_css %}
+    {% endblock page_cdn_css %}
+    
+{% endblock cdn_css %}
+
+<!-- Website JS -->
+{% block js %}
+    <!-- Caching mechanism -->
+    <script src="{% static 'shared/js/cache.js' %}"></script>
+    <!-- Page JS -->
+    {% block page_js %}
+    {% endblock page_js %}
+
+{% endblock js %}
+
+{% block cdn_js %}
+
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+
+    {% block page_cdn_js %}
+    {% endblock page_cdn_js %}
+
+{% endblock cdn_js %}
+
+<!-- Website Body -->
+{% block body%}
+
+<div class="desktop_backend">
+    {% if user.is_authenticated %}
+    <!-- If the user is authenticated, show the backend structure -->
+
+    <div class="backend_sidebar">
+        
+        <div class="logo_section d-flex justify-content-between">
+            
+            <div class="logo d-flex align-items-center gap-2">
+                <a href="{% url 'admin_dashboard:home' %}">
+                    <img src="{% static 'shared/img/branding/headline_primary_linear.png' %}" alt="logo icon"/>
+                </a>
+            </div>
+
+            <!-- <span class="logo__collapse d-flex align-items-center">
+                <i class="bi bi-box-arrow-left"></i>
+            </span> -->
+
+        </div>
+
+        {% block navigation_holder %}
+        {% endblock navigation_holder %}
+
+    </div>
+
+    <div class="backend_main_header">
+        <div class="header d-flex align-items-center justify-content-between h-100">
+
+           <div class="search-bar" >
+
+                <i class="bi bi-search text-muted ms-2 search-icon"></i>
+
+                <input type="text " class="search-input" placeholder="Type to search">
+            
+            </div>
+
+            <div class="icon-container d-flex align-items-center justify-content-end " >
+                
+                <a href="#" class="icon-link icon-link--notification">
+
+                    <i class="bi bi-envelope notification"></i>
+                    <span class="notification-badge">1</span>
+
+                </a>
+
+                <a href="#" class="icon-link">
+
+                    <i class="bi bi-bell"></i>
+
+                </a>
+
+                 <a ref="#" class="icon-link"> 
+
+                    <img  src="/media/uploads/profile-pic.png" alt="Profile" class="profile-image"/>
+
+                </a>
+                
+            </div>
+
+        </div>
+    </div>
+
+    <div class="backend_main">
+        
+
+        <!-- Main content area for the backend -->
+        {% block page_body%}
+        {% endblock page_body%}
+        <!-- Block for additional body content -->
+        
+    </div>
+
+    {% else %}
+
+    {% endif %}
+</div>
+
+<!-- If user is trying to access the backend from mobile show this view -->
+{% include "base/admin/components/mobile_view.html" %}
+
+{% endblock body%}
+
+
+<!-- Website DOM JS -->
+{% block dom_js %}
+
+    <script src="{% static 'shared/js/cache.js' %}"></script>
+    <script src="{% static 'shared/js/dashboard.js' %}"></script>  <!-- Common JavaScript -->
+    <script src="{% static 'shared/js/admin_base.js'%}"></script>
+    <!-- Page DOM JS-->
+    {% block page_dom_js %}
+    {% endblock page_dom_js %}
+
+{% endblock dom_js %}
+
+{% block cdn_dom_js %}
+
+    {% block page_cdn_dom_js %}
+    {% endblock page_cdn_dom_js %}
+{% endblock cdn_dom_js %}
+
+

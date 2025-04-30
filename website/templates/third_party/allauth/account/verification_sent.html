@@ -1,0 +1,40 @@
+{% extends "shared/auth_base.html" %}
+{% load i18n %}
+{% load static %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+<title></title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<div class="container py-4">
+    <h1 class="mb-4">{% trans "Verify Your Email Address" %}</h1>
+    
+    <div class="alert alert-info">
+        {% blocktrans %}
+            We have sent an email to you for verification. Follow the link provided to finalize the signup process. 
+            If you do not see the verification email in your main inbox, check your spam folder. 
+            Please contact us if you do not receive the verification email within a few minutes.
+        {% endblocktrans %}
+    </div>
+</div>
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

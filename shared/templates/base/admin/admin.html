@@ -1,0 +1,211 @@
+{% extends "base/admin/admin_base.html" %}
+{% load static %}
+<!-- Page Head -->
+{% block page_head %}
+{% endblock page_head %}
+
+
+<!-- Page CSS -->
+{% block page_css %}
+{% endblock page_css %}
+
+{% block page_cdn_css %}
+{% endblock page_cdn_css %}
+
+
+<!-- Page JS -->
+{% block page_js %}
+<script src="{% static 'admin_dashboard/js/chart.js'%}"></script>
+{% endblock page_js %}
+
+{% block page_cdn_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock page_cdn_js %}
+            
+{% block navigation_holder %}
+
+<div class="page_navigation basic_look">
+
+    <div class="section">
+        <div class="section-title">Main Menu</div>
+
+        <ul class="section-links">
+
+            {% url "admin_dashboard:home" as home_url %}
+            <li class="{% if request.path == home_url %}active{% endif %}">
+                <a href="{{ home_url }}">
+                    <svg class="icon" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.4167 7.98416L12.5281 4.18183C11.6456 3.49522 10.4095 3.49522 9.52696 4.18183L4.63746 7.98416C4.042 8.44723 3.69386 9.15941 3.69421 9.91374V16.5137C3.69421 17.5263 4.51503 18.3471 5.52755 18.3471H16.5275C17.5401 18.3471 18.3609 17.5263 18.3609 16.5137V9.91374C18.3609 9.15933 18.0125 8.44708 17.4167 7.98416" 
+                            stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.6666 13.7499C12.6408 14.9718 9.35731 14.9718 7.33331 13.7499" 
+                            stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Dashboard Overview
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="section">
+        <div class="section-title">Vendor Management</div>
+        
+        <ul class="section-links">
+
+            {% url 'admin_dashboard:vendor_list' as vendor_list_url %}
+            <li class="{% if request.path == vendor_list_url %}active{% endif %}">
+                <a href="{{ vendor_list_url }}">
+
+                    <svg class="icon" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="8.24998" cy="6.41667" rx="3.66667" ry="3.66667" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <ellipse cx="8.24998" cy="6.41667" rx="3.66667" ry="3.66667" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2.75 19.25V17.4167C2.75 15.3916 4.39162 13.75 6.41667 13.75H10.0833C12.1084 13.75 13.75 15.3916 13.75 17.4167V19.25" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2.75 19.25V17.4167C2.75 15.3916 4.39162 13.75 6.41667 13.75H10.0833C12.1084 13.75 13.75 15.3916 13.75 17.4167V19.25" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.6667 2.86902C16.2891 3.28442 17.4239 4.74634 17.4239 6.4211C17.4239 8.09586 16.2891 9.55778 14.6667 9.97318" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.6667 2.86902C16.2891 3.28442 17.4239 4.74634 17.4239 6.4211C17.4239 8.09586 16.2891 9.55778 14.6667 9.97318" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19.25 19.25V17.4166C19.2404 15.7525 18.1113 14.3035 16.5 13.8875" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19.25 19.25V17.4166C19.2404 15.7525 18.1113 14.3035 16.5 13.8875" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                        
+                    Vendors
+                </a>
+            </li>
+
+            {% url 'admin_dashboard:vendor_approve_list' as vendor_approve_list_url %}
+            <li class="{% if request.path == vendor_approve_list_url %}active{% endif %}">
+                <a href="{{ vendor_approve_list_url }}">
+                    <i class="fas fa-check icon"></i>
+                    Vendor Approval
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="section">
+        <div class="section-title">Product Management</div>
+
+        <ul class="section-links">
+
+            {% url "admin_dashboard:product_list" as product_list_url %}
+            <li class="{% if request.path == product_list_url %}active{% endif %}">
+                <a href="{{ product_list_url }}">
+                    <i class="bi bi-archive  icon"></i>
+                    
+                    Products
+                </a>
+            </li>
+
+            {% url "admin_dashboard:product_approve_list" as product_approve_list_url %}
+            <li class="{% if request.path == product_approve_list_url %}active{% endif %}">
+                <a href="{{ product_approve_list_url }}">
+
+                    <svg class="icon" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 2.75L18.3334 6.875V15.125L11 19.25L3.66669 15.125V6.875L11 2.75" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 2.75L18.3334 6.875V15.125L11 19.25L3.66669 15.125V6.875L11 2.75" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 11L18.3333 6.875" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 11L18.3333 6.875" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 11V19.25" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 11V19.25" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 11L3.66669 6.875" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 11L3.66669 6.875" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                    Product Approval
+                </a>
+            </li>
+
+            {% url "admin_dashboard:category_list" as category_list_url %}
+            <li class="{% if request.path == category_list_url %}active{% endif %}">
+                <a href="{{ category_list_url }}">
+                    <svg class="icon" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8.70833" cy="8.70833" r="5.95833" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="8.70833" cy="8.70833" r="5.95833" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="9.16669" y="9.16663" width="10.0833" height="10.0833" rx="2" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="9.16669" y="9.16663" width="10.0833" height="10.0833" rx="2" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        
+                    Categories
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="section">
+        <div class="section-title">Support</div>
+
+        <ul class="section-links">
+
+            {% url "admin_dashboard:home" as home_url %}
+            <li class="{% if request.path == home_url_test %}active{% endif %}">
+                <a href="{{ home_url }}">
+                    <i class="fas fa-undo icon"></i> Returns & Refunds
+                </a>
+            </li>
+
+            {% url "admin_dashboard:earnings_home" as earnings_home_url %}
+            <li class="{% if request.path == earnings_home_url %}active{% endif %}">
+                <a href="{{ earnings_home_url }}">
+                    <svg class="icon"  viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.8333 2.75V6.41667C12.8333 6.92293 13.2437 7.33333 13.75 7.33333H17.4166" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12.8333 2.75V6.41667C12.8333 6.92293 13.2437 7.33333 13.75 7.33333H17.4166" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5833 19.25H6.41665C5.40412 19.25 4.58331 18.4292 4.58331 17.4167V4.58333C4.58331 3.57081 5.40412 2.75 6.41665 2.75H12.8333L17.4166 7.33333V17.4167C17.4166 18.4292 16.5958 19.25 15.5833 19.25Z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5833 19.25H6.41665C5.40412 19.25 4.58331 18.4292 4.58331 17.4167V4.58333C4.58331 3.57081 5.40412 2.75 6.41665 2.75H12.8333L17.4166 7.33333V17.4167C17.4166 18.4292 16.5958 19.25 15.5833 19.25Z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.25 8.24996H9.16667" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.25 8.24996H9.16667" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.25 11.9167H13.75" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.25 11.9167H13.75" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.25 15.5833H13.75" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.25 15.5833H13.75" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                         
+                    
+                    Payments & Earnings
+                </a>
+            </li>
+
+            {% url "admin_dashboard:support_list" as support_url %}
+            <li class="{% if request.path == support_url %}active{% endif %}">
+                <a href="{{ support_url }}">
+                    <i class="bi bi-chat-dots icon" ></i> Support Tickets
+                </a>
+            </li>
+
+            {% url "admin_dashboard:home" as home_url %}
+            <li class="{% if request.path == home_url_test %}active{% endif %}">
+                <a href="{{ home_url }}">
+                    <i class="bi bi-gear icon" ></i> Settings & Business Info
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+{% endblock navigation_holder %}
+
+
+<!-- Main content area for the backend -->
+{% block page_body%}
+{% endblock page_body%}
+<!-- Block for additional body content -->
+
+
+<!-- Page DOM JS-->
+{% block page_dom_js %}
+<script src="{% static 'admin_dashboard/js/chart.js'%}"></script>
+{% endblock page_dom_js %}
+
+
+<!-- Page CDN JS-->
+{% block page_cdn_dom_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% endblock page_cdn_dom_js %}
+
+
+

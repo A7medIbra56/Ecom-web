@@ -1,0 +1,428 @@
+{% extends "base/admin/admin.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+{% load static %}
+
+<title>Earnings & Payments</title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+<link rel="stylesheet" type="text/x-scss" href="{% static 'admin_dashboard/scss/earnings.scss'%}"/>
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<!-- start page header -->
+
+<div class="dashboard__header dashboard__header--stats row align-items-center">
+
+    <div class="col dashboard__header-text">
+
+        <div class="box box--dark box--wallet">
+
+            <!-- <h5 class="box__title">$34,500</h5> -->
+            <h5 class="box__title">${{platform_finance.balance}}</h5>
+
+            <h5 class="box__subtitle">your wallet</h5>
+
+        </div>
+
+        <div class="box box--light box--balance">
+
+            <!-- <h5 class="box__title">$34,500</h5> -->
+            <h5 class="box__title">${{platform_finance.pending_balance}}</h5>
+
+            <h5 class="box__subtitle">pending balance</h5>
+
+        </div>
+
+      
+    </div>
+
+    <div class="col-auto dashboard__header-export">
+
+      <button class="btn d-flex align-items-center">
+        
+        <i class="bi bi-box-arrow-up"></i>
+        Withdraw Balance
+
+      </button>
+    
+    </div>
+</div>
+
+<!-- end page header -->
+
+
+<!-- start cards header -->
+<div class="dashboard__header dashboard__header--cards row align-items-center">
+
+    <div class="col dashboard__header-text">
+
+      <h1 class="dashboard-title mb-0">Payments & Earnings</h1>
+      <p class="dashboard-subtitle text-muted mb-0">List of Payments & Earnings</p>
+    
+    </div>
+</div>
+<!-- end cards header -->
+
+<!-- start cards stats gallery -->
+<div class="cards-gallery">
+
+  <div class="dashboard__card">
+
+      <div class="card__header">
+        
+        <span class="card-header__container">
+
+            <img src="../../../../media/uploads/sheet.png" loading="lazy" alt="sheet icon" class=".dashboard__card-icon">
+
+        </span>
+
+        <h3 class="dashboard__card-title">Sales this month</h3>
+
+      </div>
+
+      <p class="dashboard__card-value">{{platform_stats.this_week_sales}}</p>
+
+      <p class="dashboard__card-change">
+          <span class="percent {{platform_stats.sales_growth.0}}">{% if platform_stats.sales_growth.0 != 'neutral' %}<i class="bi bi-arrow-{{ platform_stats.sales_growth.0 }}"></i>{%endif%} {{ platform_stats.sales_growth.1 }}% </span>
+          
+          <span class="text">
+            vs last 7 days
+          </span>
+          
+      </p>
+  
+  </div>
+
+  <div class="dashboard__card">
+
+    <div class="card__header">
+        
+      <span class="card-header__container">
+        
+        <img src="../../../../media/uploads/banknote.png" loading="lazy" alt="banknote icon" class=".dashboard__card-icon">
+
+      </span>
+
+      <h3 class="dashboard__card-title">Earnings this month</h3>
+
+    </div>
+
+      <p class="dashboard__card-value">${{platform_stats.this_week_revenue}}</p>
+
+      <p class="dashboard__card-change">
+        <span class="percent {{platform_stats.revenue_growth.0}}">{% if platform_stats.revenue_growth.0 == 'neutral' %}<i class="bi bi-arrow-{{ platform_stats.revenue_growth.0 }}"></i>{%endif%} {{ platform_stats.revenue_growth.1 }}% </span>
+        
+        <span class="text">
+          vs last 7 days
+        </span>
+        
+      </p>
+
+  </div>
+
+  <div class="dashboard__card">
+    
+    <div class="card__header">
+    
+      <span class="card-header__container">
+
+        <img src="../../../../media/uploads/box.png" loading="lazy" alt="box icon" class=".dashboard__card-icon">
+          
+      </span>
+
+      <h3 class="dashboard__card-title">Total Sales</h3>
+
+    </div>
+
+      <p class="dashboard__card-value">{{platform_stats.get_total_sales}}</p>
+
+      <!-- <p class="dashboard__card-change">
+        <span class="percent {{platform_stats.sales_growth.0}}">{% if platform_stats.sales_growth.0 != 'neutral' %}<i class="bi bi-arrow-{{ platform_stats.sales_growth.0 }}"></i>{%endif%} {{ platform_stats.sales_growth.1 }}% </span>
+        
+        <span class="text">
+          vs last 7 days
+        </span>
+        
+    </p> -->
+
+  </div>
+
+  <div class="dashboard__card">
+
+    <div class="card__header">
+
+      <span class="card-header__container">
+
+        <img src="../../../../media/uploads/money pocket.png" loading="lazy" alt="money pocket icon" class=".dashboard__card-icon">
+          
+      </span>
+
+      <h3 class="dashboard__card-title">Total Revenue</h3>
+    </div>
+
+    <p class="dashboard__card-value">${{platform_stats.get_total_revenue}}</p>
+
+    <!-- <p class="dashboard__card-change">
+      <span class="percent {{platform_stats.revenue_growth.0}}">{% if platform_stats.revenue_growth.0 == 'neutral' %}<i class="bi bi-arrow-{{ platform_stats.revenue_growth.0 }}"></i>{%endif%} {{ platform_stats.revenue_growth.1 }}% </span>
+      
+      <span class="text">
+        vs last 7 days
+      </span>
+      
+    </p> -->
+
+  </div>
+
+  
+
+</div>
+
+
+<!-- start commission transaction header -->
+<div class="dashboard__header dashboard__header--transaction row align-items-center">
+
+  <div class="col dashboard__header-text">
+
+    <h1 class="dashboard-title mb-0">Admin Commission Transactions</h1>
+    <p class="dashboard-subtitle text-muted mb-0">Total of {{total_admin_transaction_count}} transactions</p>
+  
+  </div>
+
+  <div class="dashboard__header-actions">
+
+    <!-- show all btn -->
+    <div class="show-all">
+      
+      <a href="{% url 'admin_dashboard:earnings_transaction_list' %}" class="btn">
+
+        Show all
+        <i class="bi bi-arrow-right"></i>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+<!-- end commission transaction header -->
+
+
+<!-- start transaction table -->
+<div class="table-wrapper">
+  <table class="table table--transaction">
+
+      <thead>
+
+          <tr>
+              <th>Transaction ID</th>
+              <th>Order ID</th>
+              <th>Date Created</th>
+              <th>commission</th>
+              <th>Payment Status</th>
+              <th>Action</th>
+          </tr>
+
+      </thead>
+
+      <tbody>
+
+          {% for transaction in admin_transactions %}
+          
+          <tr>
+
+              <td class="transaction-id">#{{transaction.id}}</td>
+              
+              <td class="vendor-id">#{{transaction.order.id}}</td>
+              
+              <td class="date">{{transaction.created_at|date:"d/m/Y"}}</td>
+              
+              <td class="amount">${{transaction.commission_amount}}</td>
+
+              <td class="status">
+
+                {% if transaction.status == "PENDING" %}
+                
+                <p class="m-0 stat stat--pending"> {{transaction.status}}</p>
+                
+                {% elif transaction.status == "SUCCESS"%}
+                
+                <p class="m-0 stat stat--complete"> {{transaction.status}}</p>
+                
+                {% else %}
+
+                <p class="m-0 stat stat--danger"> {{transaction.status}}</p>
+
+                {% endif %}
+
+              </td>
+
+              <td class="actions">
+
+                  <a href="{% url 'admin_dashboard:earnings_transaction_detail' transaction.id%}" class="view-link ">
+                      
+                      View
+                      <i class="bi bi-eye"></i>
+
+                  </a>
+
+              </td>
+
+          </tr>
+          {% endfor%}
+          
+      </tbody>
+      
+  </table>
+</div>
+<!-- end transaction table -->
+
+<!-- start payout header -->
+<div class="dashboard__header dashboard__header--payout row align-items-center">
+
+  <div class="col dashboard__header-text">
+
+    <h1 class="dashboard-title mb-0">Payouts</h1>
+    <p class="dashboard-subtitle text-muted mb-0">Total of {{payouts|length}} payouts</p>
+  
+  </div>
+
+  <div class="dashboard__header-actions">
+
+    <!-- show all btn -->
+    <div class="show-all">
+      
+      <a href="{% url 'admin_dashboard:earnings_payout_list' %}" class="btn">
+
+        Show all
+        <i class="bi bi-arrow-right"></i>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+<!-- end payout header -->
+
+<!-- start payouts table -->
+<div class="table-wrapper">
+
+  <table class="table table--payout">
+
+      <thead>
+
+          <tr>
+              <th>Payout ID</th>
+              <!-- <th>Product</th> -->
+              <th>Amount</th>
+              <!-- <th>Price</th> -->
+              <th>Status</th>
+              <th>Action</th>
+          </tr>
+
+      </thead>
+
+      <tbody>
+
+          {% for payout in payouts %}
+          
+          <tr>
+
+              <td class="transaction-id">#{{payout.id}}</td>
+              
+              <!-- <td class="vendor-id unfinished">product</td> -->
+              
+              <td class="amount">{{payout.currency}} {{payout.amount}}</td>
+              
+              <!-- <td class="price unfinished">$500</td> -->
+
+              <td class="status">
+
+                {% if payout.payout_status == "REQUESTED" %}
+                
+                <p class="m-0 stat stat--pending"> {{payout.payout_status}}</p>
+                
+                {% elif transaction.status == "MARK_AS_COMPLETE"%}
+                
+                <p class="m-0 stat stat--complete"> {{payout.payout_status}}</p>
+
+                {% elif transaction.status == "SENT_TO_BANK"%}
+                
+                <p class="m-0 stat stat--success"> {{payout.payout_status}}</p>
+                
+                {% else %}
+
+                <p class="m-0 stat stat--danger"> {{payout.payout_status}}</p>
+
+                {% endif %}
+
+              </td>
+
+              <td class="actions">
+
+                  <a href="{% url 'admin_dashboard:earnings_payout_detail' payout.id%}" class="view-link ">
+                      
+                      View
+                      <i class="bi bi-eye"></i>
+
+                  </a>
+
+              </td>
+
+          </tr>
+          {% endfor%}
+          
+      </tbody>
+      
+  </table>
+
+</div>
+<!-- end payouts table -->
+
+
+
+
+<!-- <h1>Earnings Overview</h1>
+
+<h2>Recent Transactions</h2>
+<ul>
+    <a href="{% url 'admin_dashboard:earnings_transaction_list' %}">Visit All</a>
+    {% for transaction in admin_transactions %}
+        <li>
+            <a href="{% url 'admin_dashboard:earnings_transaction_detail' transaction.id %}">
+                Transaction #{{ transaction.id }} - ${{ transaction.commission_amount }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<h2>Recent Payouts</h2>
+<ul>
+    <a href="{% url 'admin_dashboard:earnings_payout_list' %}">Visit All</a>
+    {% for payout in payouts %}
+        <li>
+            <a href="{% url 'admin_dashboard:earnings_payout_detail' payout.id %}">
+                Payout #{{ payout.id }} - ${{ payout.amount }}
+            </a>
+        </li>
+    {% endfor %}
+</ul> -->
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

@@ -1,0 +1,392 @@
+@import "../../../../shared/static/shared/scss/variables";
+
+.dashboard__header{
+
+    .dashboard__header-text{
+        
+        .dashboard-title{
+            font-weight: 600;
+            font-size: 1.2vw;
+            color: $primary-text-color;
+        }
+
+        .dashboard-subtitle{
+            font-weight: 400;
+            font-size: 1vw;
+            color: $secondary-text-color;
+        }
+    }
+
+    .dashboard__header-export{
+        
+        button{
+            background-color: $primary-color !important;
+            color: $white;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5vw;
+            border-radius: 0.5svw;
+            font-size: 1vw;;
+            font-weight: 400;
+            padding: 0.3vw 0.7vw;
+
+            &:hover{
+                background-color: $primary-hover-color !important;
+            }
+
+            i {
+                display: inline-block; 
+                line-height: 1;
+            }
+
+        }
+    }
+}
+
+//start cards in page header
+.dashboard__header--stats {
+
+    .dashboard__header-text{
+        display:flex;
+        gap:1vw;
+        align-items: center;
+
+        .box {
+            width:30%;
+            border-radius: 0.7svw;
+            padding: 1vw;
+
+            &__title {
+                font-size: 1.5vw;
+                font-weight: 500;
+                margin:0
+            }
+            
+            &__subtitle {
+                font-size: 1vw;
+                font-weight: 400;
+                margin: 0;
+                margin-top: 1vw;
+                text-transform: capitalize;
+                color: $secondary-text-color;
+            }
+        }
+
+        .box--dark{
+            background-color: $primary-text-color;
+            
+            .box__title, .box__subtitle{
+                color: $white;
+            }
+        }
+
+        .box--light{
+            background-color: $white;
+            
+            .box__title{
+                color: $primary-text-color;
+            }
+
+            .box__subtitle{
+                color: $secondary-text-color;
+            }
+        }
+    }
+}
+//end cards in page header
+
+//start cards gallery section
+.dashboard__header--cards {
+    margin-top: 0.5vw;
+}
+//end cards gallery section
+
+//start cards gallery
+.cards-gallery{
+    // display:flex;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr)); // Dynamic columns
+    align-items: center;
+    gap:1vw;
+    width:100%;
+    // flex-wrap: wrap;
+    margin-top: 0.5vw;
+
+    .dashboard__card {
+        background-color: $white;
+        height:100%;
+        border-radius: 0.7svw;
+        padding: 1vw;
+        text-align: center;
+        display: flex;
+        flex-basis: 25%;
+        flex-direction: column;
+        border: 0.1vw solid $border-color; 
+        box-sizing: border-box;
+    
+        .card__header{
+            display:flex;
+            align-items:center;
+            gap:1vw;
+            margin-bottom: 0.5vw;
+    
+            .card-header__container{
+                width:1vw;
+                height:1vw;
+                border-radius: 50%;
+                padding: 1.5vw;
+                background-color: $off-black;
+                display:flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                
+                img {
+                    width: 2vw;
+                    height: 2vw;
+                }
+    
+                
+            }
+    
+            .dashboard__card-title {
+                font-size: 1.1vw;
+                font-weight: 500;
+                color: $secondary-text-color;
+                margin:0
+            }
+        }
+        
+        .dashboard__card-value {
+            font-size: 1.5vw; 
+            font-weight: 600;
+            color: $primary-text-color;
+            margin-bottom: 0.5vw;
+            display:flex;
+            align-items: center;
+            // margin:0;
+        }
+    
+        .dashboard__card-change {
+            font-size: 1vw;
+            font-weight: 400;
+            // color: $success-color;
+            display: flex;
+            align-items: center;
+            // justify-content: center;
+            gap: 0.5vw;
+            justify-self: flex-end;
+            // background-color: red;
+            margin-bottom: 0;
+
+            .percent{
+                background-color: $primary-bg-color;
+                color: $text-muted;
+                font-size: 1vw;
+                font-weight: 500;
+                padding: 0.1vw 0.5vw;
+                border-radius: 0.5vw;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                gap:0.3vw;
+
+                i {
+                    font-size: 1vw; // Icon size for percentage change
+                }
+
+                &.down {
+                    color: $danger-color;
+                    background-color: $tag-danger-bg-color;
+                }
+                
+                &.up{
+                    background-color: $tag-primary-bg-color;
+                    color: $primary-color;
+                }
+            }
+
+            .text{
+                font-weight: 400;
+                font-size: 1.1vw;
+                color: $text-muted;
+            }
+        }
+    }
+}
+//end cards gallery
+
+
+//start admin transaciton header
+.dashboard__header--transaction {
+    margin-top: 0.5vw;
+
+    .dashboard__header-actions{
+        .show-all {
+           a{
+            // background-color: $primary-color !important;
+        color: $primary-text-color;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5vw;
+        border-radius: 0.7svw;
+        font-size: 1vw;;
+        font-weight: 400;
+        padding: 0.3vw 0.7vw;
+
+        &:hover{
+            text-decoration: underline;
+            color: $primary-color
+        }
+
+        i {
+            display: inline-block; 
+            font-size: 1.2vw;
+            line-height: 1;
+        }
+           }
+        }
+    }
+}
+//end admin transaciton header
+
+//start transaction table
+.table--transaction {
+
+    tbody{
+        tr {
+            td {
+                font-weight: 500 !important;
+                padding: 0.75vw !important;
+            }
+
+            .actions {
+                a {
+                    color: $success-color !important;
+
+                }
+            }
+
+            .status{
+                
+                .stat{
+                    margin:0;
+                    font-weight: 500 !important;
+
+                    &--complete {
+                        background-color: $tag-success-bg-color;
+                        color: $success-color;
+                    }
+
+
+
+                    &--danger {
+                        background-color: $tag-danger-bg-color;
+                        color: $danger-color;
+                    }
+                    
+
+                    &--pending {
+                        background-color: $tag-warning-bg-color; // Yellow for pending
+                        color: $warning-color;
+                    }
+                }
+
+            }
+        }
+
+
+    }
+}
+//end transaction table
+
+
+// start payout header
+.dashboard__header--payout {
+    margin-top: 0.5vw;
+
+    .dashboard__header-actions{
+        .show-all {
+           a{
+            // background-color: $primary-color !important;
+        color: $primary-text-color;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5vw;
+        border-radius: 0.7svw;
+        font-size: 1vw;;
+        font-weight: 400;
+        padding: 0.3vw 0.7vw;
+
+        &:hover{
+            text-decoration: underline;
+            color: $primary-color
+        }
+
+        i {
+            display: inline-block; 
+            font-size: 1.2vw;
+            line-height: 1;
+        }
+           }
+        }
+    }
+}
+// end payout header
+
+// start payouts table
+.table--payout {
+    tbody {
+        tr {
+            td {
+                padding: 0.75vw !important;
+                font-weight: 500 !important;
+            }
+
+            .actions {
+                a {
+                    color: $success-color
+                }
+            }
+
+            .status{
+                
+                .stat{
+                    margin:0;
+                    font-weight: 500 !important;
+
+                    &--complete {
+                        background-color: $tag-primary-bg-color;
+                        color: $primary-color;
+                    }
+
+                    &--success {
+                        background-color: $tag-success-bg-color;
+                        color: $success-color;
+                    }
+
+                    &--danger {
+                        background-color: $tag-danger-bg-color;
+                        color: $danger-color;
+                    }
+                    
+
+                    &--pending {
+                        background-color: $tag-warning-bg-color; // Yellow for pending
+                        color: $warning-color;
+                    }
+                }
+
+            }
+        }
+    }
+}
+// end payouts table
+
+
+.unfinished {
+    color: $danger-color !important;
+}

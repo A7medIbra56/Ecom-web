@@ -1,0 +1,50 @@
+{% extends "base/admin/admin.html" %}
+
+{% block page_head %}
+
+{% load static %}
+<title>{% if sub_category %}Edit Subcategory{% else %}Add Subcategory{% endif %}</title>
+
+{% endblock page_head %}
+
+
+{% block page_css%}
+<link rel="stylesheet" type="text/x-scss" href="{% static 'admin_dashboard/scss/categories_form_base.scss' %}">
+{% endblock page_css%}
+
+
+{% block page_body %}
+
+<div class="dashboard__header">
+
+    <div class="dashboard__header-text">
+
+        <h4 class="dashboard__title">{% if sub_category %}Edit Subcategory{% else %}Add Subcategory{% endif %}</h4>
+
+        <h6 class="dashboard__subtitle">Subcategories</h6>
+
+    </div>
+</div>
+
+
+
+<div class="form-wrapper">
+    <!-- <h4>{% if sub_category %}Edit Subcategory{% else %}Add Subcategory{% endif %}</h4> -->
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="id_title">Title</label>
+            {{ form.title }}
+        </p>
+        <p>
+            <label for="id_commission_rate">Commission Rate</label>
+            <div class="input-group">
+                {{ form.commission_rate }}
+                <span class="input-icon">%</span>
+            </div>
+        </p>
+        <button type="submit" class="submit-btn btn btn-primary">{% if sub_category %}Update{% else %}Add{% endif %} Subcategory</button>
+    </form>
+    <a href="{% url 'admin_dashboard:category_detail' category.id %}" class="cat--btn">Back to Category</a>
+</div>
+{% endblock page_body %}

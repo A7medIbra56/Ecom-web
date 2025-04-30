@@ -1,0 +1,38 @@
+{% extends "account/account_base.html" %}
+
+{% block page_head %}
+    <title>My Tickets</title>
+{% endblock page_head %}
+
+{% block page_content %}
+
+    <h1>My Tickets</h1>
+
+    {% if tickets %}
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Subject</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ ticket.subject }}</td>
+                    <td>{{ ticket.get_type_display }}</td>
+                    <td>{{ ticket.get_status_display }}</td>
+                    <td>{{ ticket.created_at|date:"Y-m-d H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No tickets found.</p>
+    {% endif %}
+
+{% endblock page_content %}

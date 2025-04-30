@@ -1,0 +1,10 @@
+{% extends "notifications/base_email.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %}Email Address Changed{% endblocktrans %}{% endblock title %}
+
+{% block content %}
+<p>{% blocktrans %}You are receiving this email because the email address for your user account at {{ site_name }} has been changed to this one. If you did not request this change, please contact support immediately.{% endblocktrans %}</p>
+{% endblock content %}
+
+

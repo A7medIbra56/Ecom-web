@@ -1,0 +1,178 @@
+{% extends "base/admin/admin.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+{% load static %}
+
+<title>Vendors List</title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+<link rel="stylesheet" type="text/x-scss" href="{% static 'admin_dashboard/scss/vendor_list.scss' %}">
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<!-- start dashboard header -->
+<div class="dashboard__header">
+
+    <div class="dashboard__header-text">
+
+        <h4 class="dashboard__title">List of Vender</h4>
+
+        <h6 class="dashboard__subtitle">Total of {{vendors| length}} vendors</h6>
+
+    </div>
+
+    <div class="dashboard__header-actions">
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <form method="get" action="">
+                <i class="bi bi-search search-bar__icon"></i>
+                <input type="text" name="q" class="search-bar__input" placeholder="Search..." value="{{ search_query }}">
+                <button type="submit" class="btn btn-primary" hidden>Search</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+<!-- end dashboard header -->
+
+{% if vendors %}
+<!-- start vender table  -->
+<div class="table-wrapper">
+    <table class="table table--vendors">
+
+        <thead>
+
+            <tr>
+                <th>VENDER ID</th>
+                <th>NAME OF VENDER</th>
+                <th>ADDRESS</th>
+                <th>ACTIONS</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            {% for vendor in vendors %}
+            <tr>
+
+                <td class="vendor-id">#{{vendor.id}}</td>
+                
+                <td>
+                    <div class="vendor-info">
+                        <img src="/media/uploads/vendor-image.png" alt="Vendor Icon" class="vendor-icon">
+                        <div>
+                            <p class="vendor-name">{{vendor.user}}</p>
+                            <p class="vendor-email">{{vendor.customer_support_email}}</p>
+                        </div>
+                    </div>
+                </td>
+
+                <td>{{vendor.business_address}}</td>
+
+                <td>
+
+                    {% if vendor.is_approved%}
+                    
+                    <a href="{% url 'admin_dashboard:vendor_detail' vendor.id%}" class="view-link view-link--aprroved">
+                        
+                        View More
+                        <i class="bi bi-arrow-up-right"></i>
+
+                    </a>
+                    
+                    {%else%}
+
+                    <a href="{% url 'admin_dashboard:vendor_approve' vendor.id%}" class="view-link view-link--not-approved">
+                        
+                        View
+                        <i class="bi bi-eye"></i>
+
+                    </a>
+
+                    {%endif %}
+                </td>
+
+            </tr>
+            {% endfor%}
+            
+        </tbody>
+        
+    </table>
+</div>
+
+<!-- end vender table  -->
+
+<div class="pagination-wrapper">
+    
+    <p class="pagination-info">
+        Showing {{ pagination_info.start }} to {{ pagination_info.end }} of {{ pagination_info.total }} entries
+    </p>
+
+    <ul class="pagination">
+        {% if vendors_pagination.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ vendors_pagination.previous_page_number }}">Previous</a>
+        </li>
+        {% endif %}
+
+        {% for page_num in vendors_pagination.paginator.page_range %}
+        <li class="page-item">
+            <a class="page-link {% if vendors_pagination.number == page_num %}active{% endif %}" href="?page={{ page_num }}">{{ page_num }}</a>
+        </li>
+        {% endfor %}
+
+        {% if vendors.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ vendors_pagination.next_page_number }}">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+
+{% elif search_query %}
+
+<div class="fallback-wrapper">
+
+    <div class="fallback-card">
+
+        <h4 class="fallback-text">No search result for <strong>"{{ search_query }}"</strong></h4>
+        <a class="fallback-link" href="{%url 'admin_dashboard:home' %}">Back to Home</a>
+
+    </div>
+
+</div>
+
+<!-- end pagination -->
+{%else%}
+<div class="fallback-wrapper">
+
+    <div class="fallback-card">
+
+        <h4 class="fallback-text">{{no_avaialable_data}}</h4>
+        <a class="fallback-link" href="{%url 'admin_dashboard:home' %}">Back to Home</a>
+
+    </div>
+
+</div>
+{%endif %}
+
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

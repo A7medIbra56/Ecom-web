@@ -1,0 +1,149 @@
+@import "../../../../shared/static/shared/scss/variables.scss";
+
+
+.detail-wrapper {
+    margin-top: 1vw;
+    
+    .card {
+        margin-bottom: 1vw;
+        background-color: $white;
+        border: 0.1vw solid $border-color;
+        border-radius: 0.5svw;
+        
+        .card-body {
+
+            .card-title{
+                font-size: 1.2vw;
+                font-weight: 500;
+                margin-bottom: 1vw;
+                color: $primary-text-color;
+                text-transform: capitalize;
+            }
+
+            .data {
+                display: flex;
+                gap:2vw;
+                flex-wrap: wrap;
+
+                .box {
+                    flex:1;
+                    padding:0vw 1vw 1vw 0vw;
+                    display:flex;
+                    flex-direction: column;
+                    gap: 0.5vw;
+                    flex-basis: 20%;
+                    position: relative;
+    
+                    &-title{
+                        font-size: 1.2vw;
+                        font-weight: 500;
+                        color: $secondary-text-color;
+                        margin:0;
+                        text-transform: capitalize;
+                    }
+    
+                    &-subtitle{
+                        font-size: 1.5vw;
+                        font-weight: 500;
+                        color: $primary-text-color;
+                        margin:0;
+    
+                        &--percent{
+                            color: $primary-color
+                        }
+        
+    
+                    }
+    
+                   
+                }
+
+                .box:not(:last-of-type)::after{
+                    content: '';
+                    width:0.1vw;
+                    height:80%;
+                    background-color: $border-color;
+                    position: absolute;
+                    right: 0;
+                    top:0;
+                }
+
+            }
+
+
+            .list-group {
+                // background-color: red;
+                display:flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1vw;
+                
+                .list-group-item{
+                    background-color: $primary-bg-color;
+                    flex:1;
+                    padding:1vw !important;
+                    display:flex;
+                    flex-direction: column;
+                    gap: 0.5vw;
+                    flex-basis: 20%;
+                    border-radius: 0.5svw;
+                    border:0;
+
+                    .title{
+                        font-size: 1.3vw;
+                        font-weight: 500;
+                        margin:0;
+                        color: $primary-text-color
+                    }
+
+                    .subtitle{
+                        font-size: 1.2vw;
+                        font-weight: 500;
+                        color: $secondary-text-color;
+
+                        .value {
+                            color: $primary-color;
+                        }
+                    }
+
+                }
+        
+            }
+            
+
+        }
+    }
+
+    .actions-wrapper {
+        display:flex;
+        justify-content: flex-end;
+        gap: 1vw;
+
+        .btn{
+            color: $white;
+            font-size: 1.1vw;
+            font-weight: 500;
+            padding: 0.5vw 1.5vw;
+            border:none;
+            transition: all $transition-duration ease;
+
+            &--edit {
+                background-color: $primary-color;
+
+                &:hover {
+                    background-color: darken($color: $primary-color, $amount: 10%);
+                }
+            }
+
+            &--link {
+                background-color: $success-color;
+
+                &:hover {
+                    background-color: darken($color: $success-color, $amount: 10%);
+                }
+            }
+        }
+    }
+
+    
+}

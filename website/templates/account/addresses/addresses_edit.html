@@ -1,0 +1,17 @@
+{% extends "account/account_base.html" %}
+
+{% block page_head %}
+    <title>My Profile</title>
+{% endblock page_head %}
+
+{% block page_content %}
+
+<h1>Edit Address</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+</form>
+<a href="{% url 'account_addresses' %}">Cancel</a>
+
+{% endblock page_content %}

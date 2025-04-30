@@ -1,0 +1,181 @@
+{% extends "base/admin/admin.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+{% load static %}
+
+<title>Admin Transacitons list</title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+<link  rel="stylesheet" type="text/x-scss" href="{% static 'admin_dashboard/scss/earnings.scss'%}"/>
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<!-- <h1>Admin Transactions</h1> -->
+
+<!-- start commission transaction header -->
+<div class="dashboard__header dashboard__header--transaction row align-items-center">
+
+    <div class="col dashboard__header-text">
+  
+      <h1 class="dashboard-title mb-0">Admin Commission Transactions</h1>
+      <p class="dashboard-subtitle text-muted mb-0">List of transactions made for admin commisiions on orders</p>
+    
+    </div>
+  
+    <div class="dashboard__header-actions">
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <form method="get" action="">
+                <i class="bi bi-search search-bar__icon"></i>
+                <input type="text" name="q" class="search-bar__input" placeholder="Search..." value="{{ search_query }}">
+                <button type="submit" class="btn btn-primary" hidden>Search</button>
+            </form>
+        </div>
+
+    </div>
+  
+  </div>
+  <!-- end commission transaction header -->
+  
+{% if transactions %}
+  <!-- start transaction table -->
+  <div class="table-wrapper">
+    <table class="table table--transaction">
+  
+        <thead>
+  
+            <tr>
+                <th>Transaction ID</th>
+                <th>Order ID</th>
+                <th>Date Created</th>
+                <th>Commission</th>
+                <th>Payment Status</th>
+                <th>Action</th>
+            </tr>
+  
+        </thead>
+  
+        <tbody>
+  
+            {% for transaction in transactions %}
+            
+            <tr>
+  
+                <td class="transaction-id">#{{transaction.id}}</td>
+                
+                <td class="vendor-id">#{{transaction.order.id}}</td>
+                
+                <td class="date">{{transaction.created_at|date:"d/m/Y"}}</td>
+                
+                <td class="amount">${{transaction.commission_amount}}</td>
+  
+                <td class="status">
+  
+                  {% if transaction.status == "PENDING" %}
+                  
+                  <p class="m-0 stat stat--pending"> {{transaction.status}}</p>
+                  
+                  {% elif transaction.status == "SUCCESS"%}
+                  
+                  <p class="m-0 stat stat--complete"> {{transaction.status}}</p>
+                  
+                  {% else %}
+  
+                  <p class="m-0 stat stat--danger"> {{transaction.status}}</p>
+  
+                  {% endif %}
+  
+                </td>
+  
+                <td class="actions">
+  
+                    <a href="{% url 'admin_dashboard:earnings_transaction_detail' transaction.id%}" class="view-link ">
+                        
+                        View
+                        <i class="bi bi-eye"></i>
+  
+                    </a>
+  
+                </td>
+  
+            </tr>
+            {% endfor%}
+            
+        </tbody>
+        
+    </table>
+  </div>
+  <!-- end transaction table -->
+
+
+  <div class="pagination-wrapper">
+    
+    <p class="pagination-info">
+        Showing {{ pagination_info.start }} to {{ pagination_info.end }} of {{ pagination_info.total }} entries
+    </p>
+
+    <ul class="pagination">
+        {% if products_pagination.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products_pagination.previous_page_number }}">Previous</a>
+        </li>
+        {% endif %}
+
+        {% for page_num in products_pagination.paginator.page_range %}
+        <li class="page-item">
+            <a class="page-link {% if products_pagination.number == page_num %}active{% endif %}" href="?page={{ page_num }}">{{ page_num }}</a>
+        </li>
+        {% endfor %}
+
+        {% if vendors.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products_pagination.next_page_number }}">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+
+{% elif search_query %}
+
+<div class="fallback-wrapper">
+
+    <div class="fallback-card">
+
+        <h4 class="fallback-text">No search result for <strong>"{{ search_query }}"</strong></h4>
+        <a class="fallback-link" href="{%url 'admin_dashboard:home' %}">Back to Home</a>
+
+    </div>
+
+</div>
+
+<!-- end pagination -->
+{%else%}
+<div class="fallback-wrapper">
+
+    <div class="fallback-card">
+
+        <h4 class="fallback-text">{{no_avaialable_data}}</h4>
+        <a class="fallback-link" href="{%url 'admin_dashboard:home' %}">Back to Home</a>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

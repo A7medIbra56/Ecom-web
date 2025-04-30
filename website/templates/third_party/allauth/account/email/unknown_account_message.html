@@ -1,0 +1,16 @@
+{% extends "notifications/base_email.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %}Unknown Account{% endblocktrans %}{% endblock title %}
+
+{% block content %}
+<p>{% blocktrans %}You are receiving this email because you, or someone else, tried to access an account with email {{ email }}. However, we do not have any record of such an account in our database.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}This mail can be safely ignored if you did not initiate this action.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}If it was you, you can sign up for an account using the link below:{% endblocktrans %}</p>
+
+<p><a href="{{ signup_url }}" class="button">{% blocktrans %}Sign Up{% endblocktrans %}</a></p>
+{% endblock content %}
+
+

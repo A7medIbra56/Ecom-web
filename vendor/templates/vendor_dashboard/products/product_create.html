@@ -1,0 +1,49 @@
+{% extends "base/admin/vendor.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+{% load static %}
+
+<title></title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+{% endblock page_css %}
+
+{% block page_cdn_css %}
+
+{% endblock page_cdn_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_cdn_js %}
+<!-- FilePond JS -->
+
+{% endblock page_cdn_js %}
+
+
+{% block page_body %}
+
+<form method="post" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+
+    {{product_form.as_p}}
+
+    <!-- Product Images -->
+    <input type="file" class="filepond" id="product_images" name="product_images" multiple>
+
+    <button type="submit" class="btn btn-primary" >Create</button>
+</form>
+
+{% endblock page_body %}
+
+
+{% block page_dom_js %}
+<script src="{% static 'vendor_dashboard/js/filepond.js' %}"></script>
+{% endblock page_dom_js %}

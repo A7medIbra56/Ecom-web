@@ -1,0 +1,142 @@
+{% load static %}  <!-- Load static files like CSS, JS, images -->
+{% load widget_tweaks %}  <!-- Load widget tweaks for customizing form widgets -->
+{% load compress %}
+{% load i18n %}
+
+<!DOCTYPE html>
+
+{% if request.LANGUAGE_CODE == "ar" %}
+    <html lang="{{request.LANGUAGE_CODE}}" dir="rtl">
+{% else %}
+    <html lang="{{request.LANGUAGE_CODE}}">
+{% endif %}
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/x-icon" href="{% static 'website/img/__common__/favicon_green.png' %}">  <!-- Favicon for the site -->
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    {% block head %}
+
+    {% endblock head %}
+
+    <!-- Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">  <!-- Bootstrap Icons -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>  <!-- jQuery (slim version) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>  <!-- Popper.js -->
+
+    {% if request.LANGUAGE_CODE == "ar" %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css"
+        integrity="sha384-dpuaG1suU0eT09tx5plTaGMLBsfDLzUCCUXOY2j/LSvXYuG6Bqs43ALlhIqAJVRb" crossorigin="anonymous"> <!-- Bootstrap CSS (RTL support) -->
+    {% endif %}
+
+    {% block cdn_css %}
+    {% endblock cdn_css %}
+
+    {% block cdn_js %}
+    {% endblock cdn_js %}
+
+    {% compress css %}
+
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'shared/scss/base.scss' %}">
+
+        {% block css %}
+        {% endblock css %}
+    {% endcompress %}
+
+    {% compress js %}
+
+        {% block js %}
+        {% endblock js %}
+    {% endcompress %}
+</head>
+
+
+{% if request.LANGUAGE_CODE == "ar" %}
+<body class="rtl">
+{% else %}
+<body>
+{% endif %}
+
+    {% block body%}
+    {% endblock body%}
+
+    <!-- Change user -->
+    <form action="{% url 'switch_user' %}" method="get" style="position:fixed; bottom:10px; right:10px; background:#fff; padding:10px; border-radius:5px; box-shadow:0 0 10px rgba(0,0,0,0.2); z-index:9999;">
+        <label for="user-switch">Switch User:</label>
+        <select name="user_id" id="user-switch" onchange="this.form.submit()">
+            {% for user in users %}
+                <option value="{{ user.id }}" {% if user.id == request.user.id %}selected{% endif %}>{{ user.username }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3"
+
+    data-no-edits-header="{% trans 'No edits' %}"
+    data-no-edits-body="{% trans 'No changes were detected. Make sure youve updated any content.' %}"
+
+    data-image-uploading-header="{% trans 'Image Uploading' %}"
+    data-image-uploading-body="{% trans 'Please wait for the image upload to complete before submitting.' %}"
+    
+    data-edit-success-header="{% trans 'Edit Successful' %}"
+    data-edit-success-body="{% trans 'Your changes have been saved successfully!' %}"
+    >
+        <div class="toast" id="liveToast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto modal_success_text" id="toast_header_text">{% trans "Edit Successful" %}</strong>
+                <small id="toast_time">{% trans "Just Now" %}</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toast_body">
+                {% trans "Your changes have been saved successfully!" %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading screen for updates -->
+    <div class="update_loading" id="loading_screen" style="z-index:99999;">
+        <div class="spinner">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-info" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <h1>{% trans "Saving your updates, hang tight..." %}</h1>
+        </div>
+    </div>
+    
+
+    <!-- Libraries Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script> <!-- Bootstrap JavaScript -->
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> <!-- Jquery JavaScript -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script><!-- Popper.js -->
+
+    <script src="https://kit.fontawesome.com/a5ffb044c8.js" crossorigin="anonymous"></script>
+
+    <!-- Common DOM JavaScript -->
+    {% compress js %}
+
+        {% block dom_js %}
+        {% endblock dom_js %}
+    {% endcompress %} 
+    
+    {% block cdn_dom_js %}
+    {% endblock cdn_dom_js %}
+</body>
+
+</html>

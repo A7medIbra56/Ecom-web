@@ -1,0 +1,40 @@
+{% extends "base/admin/vendor.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+{% load static %}
+
+<title></title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+
+{% block page_body %}
+
+<h1>Product Name: {{ product.title }}</h1>
+
+<button class="btn btn-info"><a href="{% url 'vendor_dashboard:product_update' product.pk %}">Edit</a></button>
+
+<form method="post" action="{% url 'vendor_dashboard:product_delete' product.pk %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete Product</button>
+</form>
+
+{% endblock page_body %}
+
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

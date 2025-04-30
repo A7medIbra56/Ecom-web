@@ -1,0 +1,387 @@
+{% extends "base/admin/admin.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+{% load static %}
+
+<title>Product Details</title>
+
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+<link rel="stylesheet" type="text/x-scss" href="{% static 'admin_dashboard/scss/product_detail.scss'%}">
+
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+<script src="{% static 'admin_dashboard/js/product_details.js'%}"></script>
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<!-- start page header -->
+<div class="dashboard__header dashboard__header--vendor-detail">
+
+    <div class="dashboard__header-text">
+
+        <h4 class="dashboard__title">Product Details</h4>
+
+        <h6 class="dashboard__subtitle">About Product</h6>
+
+    </div>
+
+</div>
+<!-- end page header -->
+
+<!-- start product wrapper -->
+<div class="product-wrapper">
+
+    <div class="section section--left">
+        
+        <div class="images">
+            <div id="productCarousel" class="carousel slide">
+                <!-- data-bs-ride="carousel" -->
+
+                <div class="inner_carousel_holder">
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                        <span  aria-hidden="true"><i class="bi bi-caret-left-fill"></i></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+
+                    <!-- Main Images -->
+                    <div class="carousel-inner">
+
+                        {% if product.thumbnail %}
+                        <div class="carousel-item active">
+                            <img src="{{product.get_thumbnail}}" class="d-block w-100" alt="Product Image 1">
+                        </div>
+                        {% endif %}
+
+                        {% for image in product.images.all %}
+                        <div class="carousel-item {% if forloop.counter == 999 %}active{%endif%}">
+                            
+                            <img src="{{image.image.url}}" class="d-block w-100" alt="Product Image {{forloop.counter}}">
+
+                        </div>
+
+                        {% endfor %}
+                        
+                    </div>
+
+                    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                        <span  aria-hidden="true"><i class="bi bi-caret-right-fill"></i></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+
+                </div>
+                
+                
+                <div class="carousel-thumbnails mt-3 d-flex flex-wrap justify-content-center" id="thumbnailContainer">
+                    {% for image in product.images.all %}
+                        <div class="img-container {% if forloop.counter > 4 %}d-none extra-thumb{% endif %}">
+                            <img src="{{ image.image.url }}" alt="image" loading="lazy" class="img-thumbnail"
+                                data-bs-target="#productCarousel" data-bs-slide-to="{{ forloop.counter }}">
+                        </div>
+                    {% endfor %}
+                
+                    {% if product.images.all|length > 4 %}
+                        <div class="img-container text" id="showMoreContainer">
+                            <h5 class="img-thumbnail title" id="showMoreBtn" style="cursor: pointer;">
+                                +{{ product.images.all|slice:"4:"|length }} More
+                            </h5>
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+            
+        </div>
+
+        <div class="info">
+            <h5 class="info__title">
+                Additional Information
+            </h5>
+
+            <h5 class="info__text unfinished">
+                <span class="subtitle">Manufacturer:</span>
+
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+
+            </h5>
+
+            <h5 class="info__text">
+                <span class="subtitle">Item Weight:</span>
+
+                {{product.weight}}gm
+
+            </h5>
+            
+        </div>
+
+    </div>
+
+
+    <div class="section section--right">
+        
+        <div class="box box--product-info">
+            
+            <h5 class="subtitle brand">Brand:<span class="value">{{product.vendor.user}}</span></h5>
+            
+            <h5 class="subtitle vendor">Vendor:<span class="value">{{product.vendor.user}}</span></h5>
+            
+            <h5 class="product">{{product.title}}</h5>
+
+            <div class="details">
+                <div class="rating">
+                    <i class="bi bi-star-fill"></i>
+                    {{product.rating}}
+                </div>
+
+                <div class="sold unfinished">
+                    1.5k Sold
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="box box--product-pricing">
+
+            <h5 class="price">{{product.price_currency}} {{product.price}} <span class="note">(Inclusive of all taxes)</span></h5>
+
+            <h5 class="commission">Commission on this product is <span class="value">{{product.get_commission_earning}}</span></h5>
+
+        </div>
+
+        <div class="box box--product-description">
+
+            <p>{{product.description}}</p>
+
+        </div>
+
+        <div class="box box--product-details">
+            <h5 class="title">Prdouct Details</h5>
+
+            <ul class="details">
+                
+                <li class="detail">
+                    Category
+
+                    <h5 class="value">
+                        {{product.category}}
+                    </h5>
+                </li>
+
+                <li class="detail">
+                    Subcategory
+
+                    <h5 class="value">
+                        {{product.sub_category}}
+                    </h5>
+                </li>
+
+                <li class="detail">
+                    Application Type
+
+                    <h5 class="value">
+                        {{product.application_type}}
+                    </h5>
+                </li>
+
+                <li class="detail">
+                    Material
+
+                    <h5 class="value">
+                        {{product.material}}
+                    </h5>
+                </li>
+
+                <li class="detail">
+                    Dimensions
+
+                    <h5 class="value">
+                        {{product.dimensions}}
+                    </h5>
+                </li>
+
+                <li class="detail">
+                    Weight
+
+                    <h5 class="value">
+                        {{product.weight}}
+                    </h5>
+                </li>
+
+
+                <li class="detail">
+                    Color
+
+                    <h5 class="value">
+                        {{product.color}}
+                    </h5>
+                </li>
+
+                <li class="detail">
+                    Texture
+
+                    <h5 class="value">
+                        {{product.texture}}
+                    </h5>
+                </li>
+
+
+
+
+            </ul>
+
+        </div>
+
+        <div class="box box--product-shipping">
+
+            <h5 class="title">Shipping</h5>
+
+            <div class="details">
+
+                <div class="detail-item">
+                    
+                    <div class="icon">
+                        
+                        <svg class="icn" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.38346 0.707031C4.59946 0.707031 0.716797 4.5897 0.716797 9.3737C0.716797 14.1577 4.59946 18.0404 9.38346 18.0404C14.1675 18.0404 18.0501 14.1577 18.0501 9.3737C18.0501 4.5897 14.1675 0.707031 9.38346 0.707031ZM6.78346 5.90703C7.26013 5.90703 7.65013 6.29703 7.65013 6.7737C7.65013 7.25036 7.2688 7.64036 6.78346 7.64036C6.3068 7.64036 5.9168 7.25036 5.9168 6.7737C5.9168 6.29703 6.3068 5.90703 6.78346 5.90703ZM7.2428 12.433C7.1128 12.563 6.94813 12.6237 6.78346 12.6237C6.6188 12.6237 6.45413 12.563 6.32413 12.433C6.0728 12.1817 6.0728 11.7657 6.32413 11.5144L11.5241 6.31436C11.7755 6.06303 12.1915 6.06303 12.4428 6.31436C12.6941 6.5657 12.6941 6.9817 12.4428 7.23303L7.2428 12.433ZM11.9835 12.8404C11.4981 12.8404 11.1081 12.4504 11.1081 11.9737C11.1081 11.497 11.4981 11.107 11.9748 11.107C12.4515 11.107 12.8415 11.497 12.8415 11.9737C12.8415 12.4504 12.4601 12.8404 11.9835 12.8404Z" fill="currentColor"/>
+                        </svg>
+                                
+                    </div>
+
+                    <div class="text">
+                        <h6>Discount</h6>
+                        <p>Disc {{product.discount_percentage}}%</p>
+
+                    </div>
+
+                </div>
+
+                <div class="detail-item">
+                    
+                    <div class="icon">
+                        
+                        <svg class="icn" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.5075 3.96918L9.12609 1.60725C8.66489 1.35569 8.10585 1.35569 7.64465 1.60725L3.2632 3.96918C2.94176 4.14388 2.74609 4.4793 2.74609 4.86364C2.74609 5.24099 2.94176 5.5834 3.2632 5.7581L7.64465 8.12003C7.87525 8.24581 8.1338 8.3087 8.38537 8.3087C8.63694 8.3087 8.89549 8.24581 9.12609 8.12003L13.5075 5.7581C13.829 5.5834 14.0246 5.24798 14.0246 4.86364C14.0246 4.4793 13.829 4.14388 13.5075 3.96918Z" fill="#1B1B1B"/>
+                            <path d="M6.92493 8.93762L2.84397 6.89714C2.52951 6.7434 2.16614 6.75738 1.87264 6.93906C1.57216 7.12774 1.39746 7.4422 1.39746 7.79159V11.642C1.39746 12.3058 1.76782 12.9068 2.3618 13.2073L6.43577 15.2477C6.57553 15.3176 6.72927 15.3526 6.883 15.3526C7.06469 15.3526 7.24638 15.3036 7.4071 15.2058C7.70758 15.0241 7.88228 14.7027 7.88228 14.3533V10.5029C7.88927 9.83208 7.51891 9.23111 6.92493 8.93762Z" fill="#1B1B1B"/>
+                            <path d="M14.8983 6.93902C14.5978 6.75734 14.2345 6.73637 13.927 6.89709L9.85301 8.93758C9.25903 9.23806 8.88867 9.83203 8.88867 10.5029V14.3532C8.88867 14.7026 9.06337 15.0241 9.36385 15.2058C9.52458 15.3036 9.70626 15.3525 9.88795 15.3525C10.0417 15.3525 10.1954 15.3176 10.3352 15.2477L14.4092 13.2072C15.0031 12.9067 15.3735 12.3128 15.3735 11.6419V7.79155C15.3735 7.44215 15.1988 7.1277 14.8983 6.93902Z" fill="#1B1B1B"/>
+                        </svg>
+                            
+                    </div>
+
+                    <div class="text">
+                        <h6>Package</h6>
+                        <p class="unfinished">Regular Package</p>
+                    </div>
+
+                </div>
+
+                <div class="detail-item">
+                    
+                    <div class="icon">
+                        
+                        <svg class="icn" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.7053 2.48769V1.39757C11.7053 1.11106 11.4677 0.873474 11.1812 0.873474C10.8947 0.873474 10.6571 1.11106 10.6571 1.39757V2.44576H6.11496V1.39757C6.11496 1.11106 5.87737 0.873474 5.59086 0.873474C5.30436 0.873474 5.06677 1.11106 5.06677 1.39757V2.48769C3.18002 2.66239 2.2646 3.78745 2.12484 5.45757C2.11086 5.66022 2.27857 5.82793 2.47424 5.82793H14.2979C14.5005 5.82793 14.6682 5.65323 14.6472 5.45757C14.5075 3.78745 13.5921 2.66239 11.7053 2.48769Z" fill="#1B1B1B"/>
+                            <path d="M13.9762 6.87616H2.79547C2.41114 6.87616 2.09668 7.19062 2.09668 7.57495V11.8795C2.09668 13.9759 3.14487 15.3735 5.59066 15.3735H11.181C13.6268 15.3735 14.675 13.9759 14.675 11.8795V7.57495C14.675 7.19062 14.3605 6.87616 13.9762 6.87616ZM6.4362 12.7251C6.36632 12.788 6.28945 12.8369 6.2056 12.8718C6.12174 12.9068 6.0309 12.9277 5.94005 12.9277C5.84921 12.9277 5.75837 12.9068 5.67451 12.8718C5.59066 12.8369 5.51379 12.788 5.44391 12.7251C5.31813 12.5923 5.24126 12.4106 5.24126 12.2289C5.24126 12.0472 5.31813 11.8656 5.44391 11.7328C5.51379 11.6699 5.59066 11.621 5.67451 11.586C5.84222 11.5162 6.03788 11.5162 6.2056 11.586C6.28945 11.621 6.36632 11.6699 6.4362 11.7328C6.56198 11.8656 6.63885 12.0472 6.63885 12.2289C6.63885 12.4106 6.56198 12.5923 6.4362 12.7251ZM6.58294 10.0487C6.54801 10.1325 6.49909 10.2094 6.4362 10.2793C6.36632 10.3422 6.28945 10.3911 6.2056 10.426C6.12174 10.461 6.0309 10.4819 5.94005 10.4819C5.84921 10.4819 5.75837 10.461 5.67451 10.426C5.59066 10.3911 5.51379 10.3422 5.44391 10.2793C5.38102 10.2094 5.3321 10.1325 5.29716 10.0487C5.26222 9.96483 5.24126 9.87399 5.24126 9.78315C5.24126 9.6923 5.26222 9.60146 5.29716 9.51761C5.3321 9.43375 5.38102 9.35688 5.44391 9.287C5.51379 9.22411 5.59066 9.1752 5.67451 9.14026C5.84222 9.07038 6.03788 9.07038 6.2056 9.14026C6.28945 9.1752 6.36632 9.22411 6.4362 9.287C6.49909 9.35688 6.54801 9.43375 6.58294 9.51761C6.61788 9.60146 6.63885 9.6923 6.63885 9.78315C6.63885 9.87399 6.61788 9.96483 6.58294 10.0487ZM8.88198 10.2793C8.8121 10.3422 8.73523 10.3911 8.65138 10.426C8.56752 10.461 8.47668 10.4819 8.38584 10.4819C8.29499 10.4819 8.20415 10.461 8.12029 10.426C8.03644 10.3911 7.95957 10.3422 7.88969 10.2793C7.76391 10.1465 7.68704 9.96483 7.68704 9.78315C7.68704 9.60146 7.76391 9.41977 7.88969 9.287C7.95957 9.22411 8.03644 9.1752 8.12029 9.14026C8.288 9.06339 8.48367 9.06339 8.65138 9.14026C8.73523 9.1752 8.8121 9.22411 8.88198 9.287C9.00776 9.41977 9.08463 9.60146 9.08463 9.78315C9.08463 9.96483 9.00776 10.1465 8.88198 10.2793Z" fill="#1B1B1B"/>
+                        </svg>
+                            
+                    </div>
+
+                    <div class="text">
+                        <h6>Delivery Time</h6>
+                        <p class="unfinished">6-12 Working Days</p>
+                    </div>
+
+                </div>
+
+                <div class="detail-item">
+                    
+                    <div class="icon">
+
+                        <svg class="icn" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.024 10.8313C15.2196 10.8313 15.3734 10.985 15.3734 11.1807V11.8795C15.3734 13.0395 14.437 13.9759 13.277 13.9759C13.277 12.8229 12.3336 11.8795 11.1806 11.8795C10.0276 11.8795 9.08421 12.8229 9.08421 13.9759H7.68662C7.68662 12.8229 6.74324 11.8795 5.59023 11.8795C4.43722 11.8795 3.49385 12.8229 3.49385 13.9759C2.33385 13.9759 1.39746 13.0395 1.39746 11.8795V10.4819C1.39746 10.0976 1.71192 9.78311 2.09626 9.78311H8.73481C9.69915 9.78311 10.4818 9.00046 10.4818 8.03613V4.19275C10.4818 3.80842 10.7963 3.49396 11.1806 3.49396H11.7676C12.2707 3.49396 12.7319 3.76649 12.9835 4.19974L13.4307 4.98239C13.4936 5.0942 13.4097 5.24095 13.277 5.24095C12.3126 5.24095 11.53 6.0236 11.53 6.98793V9.08432C11.53 10.0487 12.3126 10.8313 13.277 10.8313H15.024Z" fill="#1B1B1B"/>
+                            <path d="M5.58997 15.3735C6.36184 15.3735 6.98756 14.7478 6.98756 13.9759C6.98756 13.204 6.36184 12.5783 5.58997 12.5783C4.81811 12.5783 4.19238 13.204 4.19238 13.9759C4.19238 14.7478 4.81811 15.3735 5.58997 15.3735Z" fill="#1B1B1B"/>
+                            <path d="M11.1808 15.3735C11.9527 15.3735 12.5784 14.7478 12.5784 13.9759C12.5784 13.204 11.9527 12.5783 11.1808 12.5783C10.4089 12.5783 9.7832 13.204 9.7832 13.9759C9.7832 14.7478 10.4089 15.3735 11.1808 15.3735Z" fill="#1B1B1B"/>
+                            <path d="M15.3733 8.75593V9.78316H13.2769C12.8926 9.78316 12.5781 9.4687 12.5781 9.08437V6.98798C12.5781 6.60364 12.8926 6.28918 13.2769 6.28918H14.1784L15.1916 8.06412C15.3104 8.27376 15.3733 8.51135 15.3733 8.75593Z" fill="#1B1B1B"/>
+                            <path d="M9.14011 1.39758H3.97602C2.55047 1.39758 1.39746 2.5506 1.39746 3.97614V8.43445C1.39746 8.81879 1.71192 9.13325 2.09626 9.13325H8.49023C9.203 9.13325 9.783 8.55325 9.783 7.84048V2.04047C9.783 1.68409 9.4965 1.39758 9.14011 1.39758ZM7.03674 4.94047L5.57626 6.35204C5.47144 6.44987 5.33867 6.49879 5.21288 6.49879C5.08011 6.49879 4.94734 6.44987 4.84951 6.35204L4.14373 5.6812C3.93409 5.47855 3.9271 5.14313 4.12975 4.93349C4.32541 4.72385 4.66083 4.72385 4.87047 4.91951L5.21288 5.24794L6.30999 4.18578C6.51963 3.98313 6.84806 3.99011 7.05071 4.19975C7.25336 4.40939 7.24638 4.73782 7.03674 4.94047Z" fill="#1B1B1B"/>
+                        </svg>
+                            
+                    </div>
+
+                    <div class="text">
+                        <h6>Estimation Arrive</h6>
+                        <p class="unfinished">10-12 October 2023</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="box box--product-stock">
+
+            <h5 class="title">Stock Details</h5>
+            
+            <div class="details">
+                <div class="detail">
+                    
+                    <h5 class="store">{{product.store_location}}</h5>
+                    
+                    <h5 class="location unfinished">Riyadh, Saudi Arabia</h5>
+                    
+                    <h5 class="address unfinished">27 Rue Octave Feuillet 44000 Nantes</h5>
+                    
+                    <h5 class="quantity">Stock <span class="value">{{product.stock_quantity}} peices</span></h5>
+                    
+                    <h5 class="date ">Last Updated:  <span class="value unfinished">22/4/2025 3:29 AM</span></h5>
+
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+   
+</div>
+<!-- end product wrapper -->
+
+<!-- start actions wrapper -->
+<div class="actions-wrapper">
+
+    {% if not product.is_approved %}
+    <!-- Show approve button only if vendor is not approved -->
+
+        <form method="post" action="">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success btn--approve" name="action" value="approve">Approve</button>
+        </form>
+
+    {% endif %}
+
+    <form method="post" action="{% url 'admin_dashboard:product_delete' product.pk %}">
+        {% csrf_token %}
+
+        <button type="submit" class="btn btn--delete">Delete Product</button>
+        
+    </form>
+</div>
+<!-- end actions wrapper -->
+
+
+
+
+{% endblock page_body %}
+
+{% block additional_dom_scripts %}
+
+{% endblock additional_dom_scripts %}

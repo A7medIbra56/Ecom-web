@@ -1,0 +1,136 @@
+@import "../../../../shared/static/shared/scss/variables.scss";
+
+
+.form-wrapper {
+    background-color: $white;
+    border-radius: 0.5svw;
+    border: 0.1vw solid $border-color;
+    padding: 1vw;
+    width: 60%;
+    margin: 1vw auto;
+    display:flex;
+    flex-direction: column;
+    padding: 1.5vw;
+    
+
+    form{
+        display:flex;
+        flex-direction: column;
+
+        p{
+
+            display:flex;
+            flex-direction: column;
+            gap: 0.5vw;
+    
+            label{
+                font-size: 1.1vw;
+                font-weight: 500;
+                color: $primary-text-color;
+                text-transform: capitalize;
+            }
+    
+            input {
+                border: 0.1vw solid $border-color;
+                border-radius: 0.5svw;
+                padding: 0.5vw;
+                font-size: 1.1vw;
+                font-size: 400;
+                outline: none;
+                color: $primary-text-color;
+                transition: all $transition-duration ease;
+    
+                &:hover {
+                    border-color: $primary-hover-color;
+                }
+    
+                &:focus{
+                    border-color: $primary-color
+                }
+            }
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        
+            input {
+                width: 100%;
+                padding: 0.5vw 2.5vw 0.5vw 0.5vw; // Add padding to the right for the icon
+                font-size: 1.1vw;
+                border: 0.1vw solid $border-color;
+                border-radius: 0.5svw !important;
+                outline: none;
+                color: $primary-text-color;
+                transition: all $transition-duration ease;
+                -moz-appearance: textfield; // For Firefox
+                -webkit-appearance: none;  // For WebKit-based browsers (Chrome, Safari, Edge)
+                appearance: none; 
+            
+                &::-webkit-inner-spin-button,
+                &::-webkit-outer-spin-button {
+                    -webkit-appearance: none; // Remove spinner for WebKit browsers
+                    margin: 0;               // Remove any default margin
+                }
+        
+                &:hover {
+                    border-color: $primary-hover-color;
+                }
+        
+                &:focus {
+                    border-color: $primary-color;
+                }
+            }
+        
+            .input-icon {
+                position: absolute;
+                right: 0.8vw; // Position the icon inside the input
+                font-size: 1.1vw;
+                color: $primary-text-color; // Use the primary text color for the icon
+            }
+        }
+
+        .submit-btn {
+            background-color: $primary-color;
+            padding: 0.5vw 1.5vw;
+            border-radius: 0.5svw;
+            cursor: pointer;
+            font-size: 1vw;
+            font-weight: 500;
+            border:none;
+            color: $white;
+            transition: all $transition-duration ease;
+            align-self: flex-end;
+            margin-top: 0.5vw;
+
+            &:hover {
+                background-color: $primary-hover-color;
+            }
+        }
+    }
+
+    .cat--btn {
+        align-self: flex-end;
+        padding: 0.5vw;
+        border-radius: 0.5svw;
+        background-color: transparent;
+        color: $primary-color;
+        font-size: 1.1vw;
+        font-weight: 500;
+        border:none;
+        cursor: pointer;
+        transition: all $transition-duration ease;
+        margin-top: 0.25vw;
+        text-decoration: none;
+
+        &:hover {
+            color: $primary-hover-color;
+            text-decoration: underline;
+        }
+    }
+   
+}
+   
+
+

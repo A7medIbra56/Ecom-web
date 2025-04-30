@@ -1,0 +1,14 @@
+{% extends "notifications/base_email.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %}Login Code{% endblocktrans %}{% endblock title %}
+
+{% block content %}
+<p>{% blocktrans %}Use the following code to log in to your account:{% endblocktrans %}</p>
+
+<p><strong>{{ login_code }}</strong></p>
+
+<p>{% blocktrans %}If you did not request this code, please ignore this email.{% endblocktrans %}</p>
+{% endblock content %}
+
+

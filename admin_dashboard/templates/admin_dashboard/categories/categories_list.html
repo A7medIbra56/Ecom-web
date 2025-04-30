@@ -1,0 +1,142 @@
+{% extends "base/admin/admin.html" %}
+
+<!-- Additional Data For Head -->
+{% block page_head %}
+
+{% load static %}
+
+<title>Categories</title>
+{% endblock page_head %}
+
+<!-- Page Specific Local CSS Imports -->
+{% block page_css %}
+
+<!-- <link rel="stylesheet" type="text/x-scss" href="{% static 'admin_dashboard/scss/categories_list.scss' %}"> -->
+<link rel="stylesheet" type="text/x-scss" href="{% static  'admin_dashboard/scss/categories_list.scss'%}"/>
+{% endblock page_css %}
+
+<!-- Page Specific Local JavaScript Imports -->
+{% block page_js %}
+
+{% endblock page_js %}
+
+{% block page_body %}
+
+<div class="dashboard__header">
+
+    <div class="dashboard__header-text">
+
+        <h4 class="dashboard__title">Categories</h4>
+
+        <h6 class="dashboard__subtitle">List of categories</h6>
+
+    </div>
+
+    <div class="dashboard__header-actions">
+
+        <div class="add-category">
+            <a href="{% url 'admin_dashboard:category_add' %}" class="btn">+ Add Category</a>
+        </div>
+
+        <div class="search-bar">
+            <form method="get" action="">
+                <i class="bi bi-search search-bar__icon"></i>
+                <input type="text" name="q" class="search-bar__input" placeholder="Search..." value="{{ search_query }}">
+                <button type="submit" class="btn btn-primary" hidden>Search</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="categories-list">
+    {% if categories %}
+        <div class="row">
+            {% for category in categories %}
+            <div class="category-wrapper col-md-6 col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="category__title d-flex justify-content-between align-items-center">
+                            <a href="{% url 'admin_dashboard:category_detail' category.id %}"><h5 class="card-title">{{ category.title }}</h5></a>
+
+                            <button class="btn btn-link p-0" type="button" data-bs-toggle="collapse" data-bs-target="#category-{{ category.id }}" aria-expanded="false" aria-controls="category-{{ category.id }}">
+                                <i class="bi bi-chevron-down"></i>
+                            </button>
+                            
+                        </div>
+                        
+                        <p class="card-text">Commission Rate: <span class="commission-rate__value">{{ category.commission_rate }}%</span></p>
+                        
+                        
+                        <div class="collapse" id="category-{{ category.id }}">
+
+                            <a href="{% url 'admin_dashboard:category_edit' category.id %}" class="btn--edit">
+                                
+                                Edit Category
+                                <i class="bi bi-pencil-square"></i>
+
+                            </a>
+
+                            <h6 class="sub-category__title">Sub Categories</h6>
+
+
+                            {% if category.sub_categories.all %}
+                                <ul class="list-group">
+                                    {% for sub_category in category.sub_categories.all %}
+                                    <li class="list-group-item d-flex align-items-center">
+
+                                        <div class="text">
+                                            
+                                            <h5 class="text__title">{{ sub_category.title }}</h5>
+                                            <h6 class="text__subtitle">Commission rate: <span class="value">{{sub_category.commission_rate}}%</span></h6>
+                                            
+                                        </div>
+
+                                        <a href="{% url 'admin_dashboard:subcategory_edit' sub_category.id %}" class="btn--edit"><i class="bi bi-pencil-square"></i></a>
+
+                                    </li>
+                                    {% endfor %}
+                                    <li class="list-group-item list-group-item--add d-flex align-items-center">
+                                        <a href="{% url 'admin_dashboard:subcategory_add' category.id %}" class="btn--add">+ Add Sub Category</a>
+                                    </li>
+                                </ul>
+                            {% else %}
+                                <p class="text-muted">No sub categories for this category</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+    {% elif search_query %}
+
+        <div class="fallback-wrapper">
+        
+            <div class="fallback-card">
+        
+                <h4 class="fallback-text">No search result for <strong>"{{ search_query }}"</strong></h4>
+                <a class="fallback-link" href="{%url 'admin_dashboard:home' %}">Back to Home</a>
+        
+            </div>
+        
+        </div>
+
+    {% else %}
+
+    <div class="fallback-wrapper">
+        <div class="fallback-card">
+            <h4 class="fallback-text">No categories available</h4>
+            <a class="fallback-link" href="{% url 'admin_dashboard:home' %}">Back to Home</a>
+        </div>
+    </div>
+
+    {% endif %}
+</div>
+{% endblock page_body %}

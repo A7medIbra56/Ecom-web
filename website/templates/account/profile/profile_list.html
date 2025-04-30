@@ -1,0 +1,17 @@
+{% extends "account/account_base.html" %}
+
+{% block page_head %}
+    <title>My Profile</title>
+{% endblock page_head %}
+
+{% block page_content %}
+
+<h1>Profile</h1>
+<ul>
+    <li>First Name: {{ profile.username }}</li>
+    <li>Last Name: {{ profile.last_name }}</li>
+    <li>Email: {{ profile.user.email }}</li>
+</ul>
+<a href="{% url 'account_profile_edit' %}">Edit Profile</a>
+
+{% endblock page_content %}
