@@ -390,6 +390,33 @@
                 }  
             
             }
+            //  filter vendor
+            .filter-toggle {
+                display: flex;
+                align-items: center;
+                gap: 0.5vw;
+                cursor: pointer;
+                padding: 0.5vw 1vw;
+                border-radius: 0.6vw;
+                transition: all 0.3s ease;
+              
+                i {
+                  font-size: 1.3vw;
+
+
+                  color: #333;
+                  transition: color 0.3s;
+                }
+              
+                &:hover {
+                  background-color: #e2e6ea;
+              
+                  i {
+                    color: #007bff;
+                  }
+                }
+              }
+              
     }
 }
 

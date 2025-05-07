@@ -28,8 +28,7 @@
     <div class="dashboard__header-actions">
         <!-- Add Product -->
         <div type="button" class="Add_Product">
-            <a class="btn" href="{% url 'vendor_dashboard:product_create' %}">
-                <i class="bi bi-plus-lg"></i> Add Product
+            <a class="btn" href="{% url 'vendor_dashboard:product_create' %}"></i> Add Product
             </a>
         </div>
 
@@ -41,6 +40,12 @@
                 <button type="submit" class="btn btn-primary" hidden>Search</button>
             </form>
         </div>
+           <!-- filter toggle  -->
+        <div class="filter-toggle">
+            <i class="bi bi-sliders"></i>
+            <i class="bi bi-chevron-down"></i>
+        </div>
+        
  
     </div>
 </div>
@@ -74,26 +79,39 @@
                 </td>
 
                 <td class="stock">
-                    <div class="stock-btn">
-                        IN STOCK 
-                        <span class="stock-badge">{{product.stock_quantity}}</span>
-                    </div>
+                    {% if product.stock_quantity > 0 %}
+                        <span class="stock-badge">{{ product.stock_quantity }}</span>
+                    {% else %}
+                        <span class="stock-badge out-of-stock">Out of Stock</span>
+                    {% endif %}
                 </td>
+                
 
                 <td class="price">${{product.price}}</td>
 
                 <td class="btn_switch">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                    </div>
+                    <div class="switch">
+                        <input type="checkbox" id="customSwitch{{ product.id }}" class="switch__input"
+                               {% if product.active %}checked{% endif %}>
+                        <label for="customSwitch{{ product.id }}" class="switch__label"></label>
+                      </div>
+                      
                 </td>
 
                 <td class="status">
-                    {% if product.is_approved %}
-                    <span class="status_inside status_inside--aprroved">Reviewing</span>
-                    {% else %}
-                    <span class="status_inside status_inside--not_aprroved">Awaiting</span>
-                    {% endif %}
+                        <div class="status_inside 
+                          {% if product.status == 'PENDING' or product.status == 'ACTIVE' %}
+                            status_inside--aprroved
+                          {% else %}
+                            status_inside--not_aprroved
+                          {% endif %}">
+                          
+                          {% if product.status == 'PENDING' or product.status == 'ACTIVE' %}
+                            Reviewing
+                          {% else %}
+                            Awaiting
+                          {% endif %}
+                        </div> 
                 </td>
 
                 <td>
@@ -104,9 +122,13 @@
                         <a href="{% url 'vendor_dashboard:product_update' product.id %}" class="view-link view-link--edit">
                             Edit <i class="bi bi-pencil-square"></i>
                         </a>
-                        <a href="#" class="view-link view-link--delete">
-                            Delete <i class="bi bi-trash"></i>
-                        </a>
+                        <form method="post" action="{% url 'vendor_dashboard:product_delete' product.pk %}" class="view-link view-link--delete actions">
+                            {% csrf_token %}
+                            <button type="submit">
+                               Delete <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                        
                     </div>
                 </td>
             </tr>
