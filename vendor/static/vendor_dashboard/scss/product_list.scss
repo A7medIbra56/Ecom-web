@@ -5,37 +5,58 @@
     .table--products {
         tbody {
             tr {
+                height:6.4vw;
                 .product-id
                 {
+                    font-weight: 400;
                     color: $primary-color !important;
+                    font-size: 1.086vw !important;
                 }
                 .product-info {
                     display: flex;
                     align-items: center;
                     gap: 0.5vw;
+                    font-size: 1.086vw;
 
                     .product-icon {
-                        width: 2vw;
-                        height: 2vw;
+                        width: 2.9vw;
+                        height: 2.9vw;
                         border-radius: 50%;
-                    }
-
-                    .product-name {
-                        margin: 0;
-                        color: $primary-text-color;
                     }
                 }
 
                 .price {
-                    font-weight: 500;
-                    color: $success-color;
+                    font-weight: 400;
+                    font-size: 1.1vw;
+                   color: $primary-sidebar-text-color;
                 }
-
+                .stock
+                {
+                    .stock-badge {
+                        display: inline-block;
+                        text-align: center;
+                        min-width:  6.32vw;
+                        font-size:  0.9vw;
+                        font-weight: 500;
+                        line-height:  1.6vw;
+                        padding: 0.2vw 0.9vw;
+                        border-radius: 1vw;
+                      
+                        &.out-of-stock {
+                          background-color:$tag-danger-bg-color ; 
+                          color: $danger-color;
+                        }
+                      }
+                }
+                
                 .status {
                     .status_inside {
                         display: inline-block;
                         text-align: center;
-                        min-width: 6vw;
+                        min-width:  6.32vw;
+                        font-size:  0.9vw;
+                        font-weight: 500;
+                        line-height:  1.6vw;
                         padding: 0.2vw 0.9vw;
                         border-radius: 1vw;
 
@@ -51,56 +72,43 @@
                     }
                 }
 
-                .stock-btn {
-                    display: inline-block;
-                    position: relative;
-                    background-color: $tag-success-bg-color;
-                    color: $success-color;
-                    font-weight: 500;
-                    padding: 0.2vw 0.9vw;
-                    border-radius: 1vw;
-
-                    .stock-badge {
-                        position: absolute;
-                        top: 0;
-                        left: 100%;
-                        transform: translate(-50%, -50%);
-                        background-color: $danger-color;
-                        color: $white;
-                        padding: 0.2vw 0.4vw;
-                        font-size: 0.6vw;
-                        border-radius: 4vw;
-                        font-weight: 500;
-                    }
-                }
-
                 .actions {
                     display: flex;
-                    gap: 0.5vw;
+                    gap: 1.4vw;
                     align-items: center;
 
                     a {
+                        border: 0 !important;
                         display: flex;
                         align-items: center;
-                        gap: 0.25vw;
-                        text-decoration: none;
+                        gap:  0.7vw;
                         padding: 0.3vw 0.7vw;
                         border-radius: 5vw;
-                        font-size: 0.9vw;
+                        font-size:  0.9vw;
                         font-weight: 500;
-                        transition: background-color 0.3s;
+                        line-height: 140%;
+                        transition: background-color $transition-duration;
 
                         i {
-                            font-size: 1vw;
+                            font-size: 1.8vw;
                         }
                     }
+                    button
+                    {
+                        border: 0;
+                        gap: 0.5 !important;
+                        background-color: transparent;
+                        color: $danger-color;
+                    }
                     .view-link--view {
+                        
                         color: $success-color;
                     }
                     .view-link--edit {
                         color: $primary-color;
                     }
                     .view-link--delete {
+                        
                         color: $danger-color;
                     }
                 }
@@ -108,3 +116,50 @@
         }
     }
 }
+/* switch - checked */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 2.78vw;       
+    height: 1.46vw;     
+  
+    &__input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+  
+  
+      &:checked + .switch__label {
+        background-color: $primary-color;  
+        &::before {
+          transform: translateX(1.32vw);  
+          background-color: $white;
+        }
+      }
+    }
+  
+    &__label {
+      position: absolute;
+      cursor: pointer;
+      background-color: $black;
+      border-radius: 2vw;    
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: background-color $transition-duration;
+  
+      &::before {
+        content: "";
+        position: absolute;
+        width: 1.1vw;         
+        height: 1.1vw;        
+        left: 0.2vw;        
+        top: 0.2vw;          
+        background-color: $white;
+        border-radius: 50%;  
+        transition: transform $transition-duration; 
+      }
+    }
+  }
+  

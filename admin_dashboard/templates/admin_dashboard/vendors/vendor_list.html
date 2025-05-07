@@ -82,7 +82,6 @@
                 </td>
 
                 <td>{{vendor.business_address}}</td>
-
                 <td>
 
                     {% if vendor.is_approved%}
@@ -93,19 +92,13 @@
                         <i class="bi bi-arrow-up-right"></i>
 
                     </a>
-                    
                     {%else%}
-
                     <a href="{% url 'admin_dashboard:vendor_approve' vendor.id%}" class="view-link view-link--not-approved">
-                        
                         View
                         <i class="bi bi-eye"></i>
-
                     </a>
-
                     {%endif %}
                 </td>
-
             </tr>
             {% endfor%}
             
