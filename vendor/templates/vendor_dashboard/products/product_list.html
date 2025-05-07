@@ -100,17 +100,18 @@
 
                 <td class="status">
                         <div class="status_inside 
-                          {% if product.status == 'PENDING' or product.status == 'ACTIVE' %}
-                            status_inside--aprroved
-                          {% else %}
-                            status_inside--not_aprroved
+                          {% if product.status == 'PENDING' or product.status == 'DEACTIVATED_VENDOR' %}
+                            status_inside--warning
+
+                          {% elif product.status == 'DEACTIVATED_ADMIN' or product.status == 'REJECTED' %}
+                            status_inside--danger
+
+                          {% elif product.status == 'ACTIVE' %}
+                            status_inside--success
+                            
                           {% endif %}">
                           
-                          {% if product.status == 'PENDING' or product.status == 'ACTIVE' %}
-                            Reviewing
-                          {% else %}
-                            Awaiting
-                          {% endif %}
+                          {{ product.status }}
                         </div> 
                 </td>
 

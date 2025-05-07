@@ -60,14 +60,19 @@
                         padding: 0.2vw 0.9vw;
                         border-radius: 1vw;
 
-                        &--aprroved {
+                        &--success {
                             background-color: $tag-success-bg-color;
                             color: $success-color;
                         }
 
-                        &--not_aprroved {
-                            background-color: $tag-primary-bg-color;
-                            color: $primary-color;
+                        &--warning {
+                            background-color: $tag-warning-bg-color;
+                            color: $warning-color;
+                        }
+
+                        &--danger {
+                            background-color: $tag-danger-bg-color;
+                            color: $danger-color;
                         }
                     }
                 }
