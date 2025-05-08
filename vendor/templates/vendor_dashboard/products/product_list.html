@@ -97,24 +97,22 @@
                       </div>
                       
                 </td>
-
                 <td class="status">
-                    <div class="status_inside status_inside--{{ product.status|lower }}">
-                        {% if product.status == 'PENDING' %}
-                            Pending
-                        {% elif product.status == 'REJECTED' %}
-                            Rejected
-                        {% elif product.status == 'ACTIVE' %}
-                            Active
-                        {% elif product.status == 'DEACTIVATED_VENDOR' %}
-                            Deactivated by Vendor
-                        {% elif product.status == 'DEACTIVATED_ADMIN' %}
-                            Deactivated by Admin
-                        {% else %}
-                            Unknown Status
-                        {% endif %}
+                    <div class="status_inside 
+                      {% if product.status == 'PENDING' or product.status == 'DEACTIVATED_VENDOR' %}
+                        status_inside--warning
+    
+                      {% elif product.status == 'DEACTIVATED_ADMIN' or product.status == 'REJECTED' %}
+                        status_inside--danger
+    
+                      {% elif product.status == 'ACTIVE' %}
+                        status_inside--success
+                        
+                      {% endif %}">
+                      
+                      {{ product.status }}
                     </div> 
-                </td>
+            </td>
 
                 <td>
                     <div class="actions">

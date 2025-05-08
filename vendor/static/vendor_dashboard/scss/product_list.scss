@@ -61,35 +61,30 @@
                     .status_inside {
                         display: inline-block;
                         text-align: center;
-                        min-width: 6.32vw;
-                        font-size: 1vw;
+                        min-width:  6.32vw;
+                        font-size:  0.9vw;
                         font-weight: 500;
-                        line-height: 1.6vw;
-                        padding: 0.2vw 1vw;
+                        line-height:  1.6vw;
+                        padding: 0.2vw 0.9vw;
                         border-radius: 1vw;
-                
-                        &--pending {
-                            background-color: $tag-primary-bg-color;
-                            color: $primary-color;
-                        }
-                        &--rejected {
-                            background-color: $tag-danger-bg-color;
-                            color: $danger-color;
-                        }
-                        &--active {
+
+                        &--success {
                             background-color: $tag-success-bg-color;
                             color: $success-color;
                         }
-                        &--deactivated_vendor {
+
+                        &--warning {
                             background-color: $tag-warning-bg-color;
                             color: $warning-color;
                         }
-                        &--deactivated_admin {
-                            background-color: $tag-warning-bg-color;
-                            color: $warning-color;
+
+                        &--danger {
+                            background-color: $tag-danger-bg-color;
+                            color: $danger-color;
                         }
                     }
                 }
+
 
                 .actions {
                     display: flex;
