@@ -2,113 +2,133 @@
 // products table
 
 .table-wrapper {
+
     .table--products {
+        thead
+        th
+        {
+            padding: 1vw !important;
+        }
         tbody {
+    
             tr {
-                height:6.4vw;
-                .product-id
-                {
+                height: 6vw;
+
+                .product-id {
                     font-weight: 400;
                     color: $primary-color !important;
-                    font-size: 1.086vw !important;
+                    font-size: 1vw !important;
+                    padding-left: 1vw !important;
                 }
+
                 .product-info {
                     display: flex;
                     align-items: center;
                     gap: 0.5vw;
-                    font-size: 1.086vw;
+                    font-size: 1vw;
 
                     .product-icon {
-                        width: 2.9vw;
-                        height: 2.9vw;
+                        width: 3vw;
+                        height: 3vw;
                         border-radius: 50%;
                     }
                 }
 
                 .price {
                     font-weight: 400;
-                    font-size: 1.1vw;
-                   color: $primary-sidebar-text-color;
+                    font-size: 1vw;
+                    color: $primary-sidebar-text-color;
                 }
-                .stock
-                {
+
+                .stock {
                     .stock-badge {
                         display: inline-block;
-                        text-align: center;
-                        min-width:  6.32vw;
-                        font-size:  0.9vw;
+                        min-width: 6vw;
+                        font-size: 1vw;
                         font-weight: 500;
-                        line-height:  1.6vw;
-                        padding: 0.2vw 0.9vw;
+                        line-height: 1.6vw;
+                        padding: 0.2vw 1vw;
                         border-radius: 1vw;
-                      
+
                         &.out-of-stock {
-                          background-color:$tag-danger-bg-color ; 
-                          color: $danger-color;
+                            background-color: $tag-danger-bg-color;
+                            color: $danger-color;
                         }
-                      }
+                    }
                 }
-                
+
                 .status {
                     .status_inside {
                         display: inline-block;
                         text-align: center;
-                        min-width:  6.32vw;
-                        font-size:  0.9vw;
+                        min-width: 6.32vw;
+                        font-size: 1vw;
                         font-weight: 500;
-                        line-height:  1.6vw;
-                        padding: 0.2vw 0.9vw;
+                        line-height: 1.6vw;
+                        padding: 0.2vw 1vw;
                         border-radius: 1vw;
-
-                        &--aprroved {
+                
+                        &--pending {
+                            background-color: $tag-primary-bg-color;
+                            color: $primary-color;
+                        }
+                        &--rejected {
+                            background-color: $tag-danger-bg-color;
+                            color: $danger-color;
+                        }
+                        &--active {
                             background-color: $tag-success-bg-color;
                             color: $success-color;
                         }
-
-                        &--not_aprroved {
-                            background-color: $tag-primary-bg-color;
-                            color: $primary-color;
+                        &--deactivated_vendor {
+                            background-color: $tag-warning-bg-color;
+                            color: $warning-color;
+                        }
+                        &--deactivated_admin {
+                            background-color: $tag-warning-bg-color;
+                            color: $warning-color;
                         }
                     }
                 }
 
                 .actions {
                     display: flex;
-                    gap: 1.4vw;
+                    gap: 2vw;
                     align-items: center;
 
                     a {
                         border: 0 !important;
                         display: flex;
                         align-items: center;
-                        gap:  0.7vw;
+                        gap: 1vw;
                         padding: 0.3vw 0.7vw;
                         border-radius: 5vw;
-                        font-size:  0.9vw;
+                        font-size: 1vw;
                         font-weight: 500;
                         line-height: 140%;
                         transition: background-color $transition-duration;
 
                         i {
-                            font-size: 1.8vw;
+                            font-size: 2vw;
                         }
                     }
-                    button
-                    {
+
+                    button {
                         border: 0;
                         gap: 0.5 !important;
                         background-color: transparent;
                         color: $danger-color;
                     }
+
                     .view-link--view {
-                        
                         color: $success-color;
                     }
+
                     .view-link--edit {
                         color: $primary-color;
                     }
+
                     .view-link--delete {
-                        
                         color: $danger-color;
                     }
                 }
@@ -116,6 +136,9 @@
         }
     }
 }
+
+
+
 /* switch - checked */
 .switch {
     position: relative;

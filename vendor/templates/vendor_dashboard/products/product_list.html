@@ -55,8 +55,8 @@
 <div class="table-wrapper">
     <table class="table table--products">
         <thead>
-            <tr>
-                <th>PRODUCT ID</th>
+            <tr >
+                <th >PRODUCT ID</th>
                 <th>PRODUCT</th>
                 <th>STOCK</th>
                 <th>PRICE</th>
@@ -99,19 +99,21 @@
                 </td>
 
                 <td class="status">
-                        <div class="status_inside 
-                          {% if product.status == 'PENDING' or product.status == 'ACTIVE' %}
-                            status_inside--aprroved
-                          {% else %}
-                            status_inside--not_aprroved
-                          {% endif %}">
-                          
-                          {% if product.status == 'PENDING' or product.status == 'ACTIVE' %}
-                            Reviewing
-                          {% else %}
-                            Awaiting
-                          {% endif %}
-                        </div> 
+                    <div class="status_inside status_inside--{{ product.status|lower }}">
+                        {% if product.status == 'PENDING' %}
+                            Pending
+                        {% elif product.status == 'REJECTED' %}
+                            Rejected
+                        {% elif product.status == 'ACTIVE' %}
+                            Active
+                        {% elif product.status == 'DEACTIVATED_VENDOR' %}
+                            Deactivated by Vendor
+                        {% elif product.status == 'DEACTIVATED_ADMIN' %}
+                            Deactivated by Admin
+                        {% else %}
+                            Unknown Status
+                        {% endif %}
+                    </div> 
                 </td>
 
                 <td>

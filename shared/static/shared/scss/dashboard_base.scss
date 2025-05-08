@@ -378,7 +378,7 @@
                 a{
                     font-size: 1vw;
                     font-weight: 500;
-                    width: 10vw;
+                    width: 8vw;
                     color: $white;
                     background-color: $primary-color;
                     border-radius: 0.5svw;
@@ -399,11 +399,16 @@
                 padding: 0.5vw 1vw;
                 border-radius: 0.6vw;
                 transition: all 0.3s ease;
-              
+              .bi-sliders
+              {
+                font-size: 1vw;
+              }
+              .bi-chevron-down
+              {
+                font-size: 0.5vw;
+              }
                 i {
-                  font-size: 1.3vw;
-
-
+                  
                   color: #333;
                   transition: color 0.3s;
                 }
