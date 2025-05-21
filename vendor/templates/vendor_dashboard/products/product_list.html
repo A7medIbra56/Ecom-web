@@ -124,7 +124,7 @@
                         </a>
                         <form method="post" action="{% url 'vendor_dashboard:product_delete' product.pk %}" class="view-link view-link--delete actions">
                             {% csrf_token %}
-                            <button type="submit">
+                            <button type="submit" class="submit_trash">
                                Delete <i class="bi bi-trash"></i>
                             </button>
                         </form>

@@ -4,13 +4,12 @@
 .table-wrapper {
 
     .table--products {
-        thead
-        th
-        {
+        thead th {
             padding: 1vw !important;
         }
+
         tbody {
-    
+
             tr {
                 height: 6vw;
 
@@ -46,7 +45,7 @@
                         min-width: 6vw;
                         font-size: 1vw;
                         font-weight: 500;
-                        line-height: 1.6vw;
+                        line-height: 2vh;
                         padding: 0.2vw 1vw;
                         border-radius: 1vw;
 
@@ -61,13 +60,12 @@
                     .status_inside {
                         display: inline-block;
                         text-align: center;
-                        min-width:  6.32vw;
-                        font-size:  0.9vw;
+                        min-width: 6vw;
+                        font-size: 0.9vw;
                         font-weight: 500;
-                        line-height:  1.6vw;
-                        padding: 0.2vw 0.9vw;
+                        line-height: 2vh;
+                        padding: 0.2vw 1vw;
                         border-radius: 1vw;
-
                         &--success {
                             background-color: $tag-success-bg-color;
                             color: $success-color;
@@ -88,43 +86,60 @@
 
                 .actions {
                     display: flex;
-                    gap: 2vw;
+                    gap: 1vw;
                     align-items: center;
 
                     a {
                         border: 0 !important;
                         display: flex;
-                        align-items: center;
                         gap: 1vw;
+                        align-items: center;
                         padding: 0.3vw 0.7vw;
                         border-radius: 5vw;
                         font-size: 1vw;
                         font-weight: 500;
-                        line-height: 140%;
+                        line-height: 1.4vh;
                         transition: background-color $transition-duration;
 
                         i {
                             font-size: 2vw;
+
                         }
                     }
 
                     button {
                         border: 0;
-                        gap: 0.5 !important;
                         background-color: transparent;
                         color: $danger-color;
+
                     }
 
                     .view-link--view {
                         color: $success-color;
+                        text-decoration: underline;
                     }
 
                     .view-link--edit {
                         color: $primary-color;
+                        text-decoration: underline;
                     }
 
                     .view-link--delete {
+
+                        .submit_trash {
+                            display: flex;
+                            align-items: center;
+                            gap: 1vw;
+                            font-size: 1vw;
+                            font-weight: 500;
+                            line-height: 1.4vh;
+                            border: none;
+                            background: transparent;
+                            cursor: pointer;
+                        }
+
                         color: $danger-color;
+                        text-decoration: underline;
                     }
                 }
             }
@@ -138,46 +153,46 @@
 .switch {
     position: relative;
     display: inline-block;
-    width: 2.78vw;       
-    height: 1.46vw;     
-  
+    width: 2.8vw;
+    height: 1.5vw;
+
     &__input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-  
-  
-      &:checked + .switch__label {
-        background-color: $primary-color;  
-        &::before {
-          transform: translateX(1.32vw);  
-          background-color: $white;
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+
+        &:checked+.switch__label {
+            background-color: $primary-color;
+
+            &::before {
+                transform: translateX(1.32vw);
+                background-color: $white;
+            }
         }
-      }
     }
-  
+
     &__label {
-      position: absolute;
-      cursor: pointer;
-      background-color: $black;
-      border-radius: 2vw;    
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      transition: background-color $transition-duration;
-  
-      &::before {
-        content: "";
         position: absolute;
-        width: 1.1vw;         
-        height: 1.1vw;        
-        left: 0.2vw;        
-        top: 0.2vw;          
-        background-color: $white;
-        border-radius: 50%;  
-        transition: transform $transition-duration; 
-      }
+        cursor: pointer;
+        background-color: $black;
+        border-radius: 2vw;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: background-color $transition-duration;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 1.1vw;
+            height: 1.1vw;
+            left: 0.2vw;
+            top: 0.2vw;
+            background-color: $white;
+            border-radius: 50%;
+            transition: transform $transition-duration;
+        }
     }
-  }
-  
+}
